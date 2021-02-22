@@ -1,0 +1,43 @@
+<div class="page-layout simple fullwidth docs" style="padding: 10px">
+    <div class="mat-elevation-z8" *ngIf="dataSource">
+        <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ID #</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="first_name">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>First Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.first_name}}</mat-cell>
+
+            </ng-container>
+            <ng-container matColumnDef="last_name">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Last Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.last_name}}</mat-cell>
+
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-icon-button>
+                        <mat-icon>launch</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+<!--            <ng-container matColumnDef="loading">-->
+<!--                <mat-footer-cell *matFooterCellDef colspan="6">-->
+<!--                    Loading Data...-->
+<!--                </mat-footer-cell>-->
+<!--            </ng-container>-->
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+<!--            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row>-->
+        </mat-table>
+
+    </div>
+</div>
