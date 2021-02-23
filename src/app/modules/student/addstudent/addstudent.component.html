@@ -1,0 +1,76 @@
+<form [formGroup]="addStudentForm" class="normal-form">
+    <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="$key">
+                <mat-form-field style="width: 50%">
+                    <input formControlName="full_name" matInput placeholder="Full Name" required>
+                    <mat-error>Full Name is mandatory</mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 50%">
+                    <input formControlName="last_name" matInput placeholder="Last Name" required>
+                    <mat-error>Last Name is mandatory</mat-error>
+
+
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <input formControlName="email" matInput placeholder="Email" required>
+                    <mat-error>Email is mandatory</mat-error>
+
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <mat-select formControlName="department" placeholder="Department">
+                        <mat-option>None</mat-option>
+                        <ng-container *ngFor="let department of departments">
+                            <mat-option value="department.id">{{department.value}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input formControlName="city" matInput placeholder="City" required>
+                    <mat-error>City is mandatory</mat-error>
+
+                </mat-form-field>
+                <mat-radio-group formControlName="gender" required>
+                    <mat-label>Gender</mat-label>
+                    <mat-radio-button value="male">Male</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                    <mat-radio-button value="other">Other</mat-radio-button>
+                </mat-radio-group>
+                <br>
+
+
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                <mat-form-field style="width: 100%">
+                    <input formControlName="phone_number" matInput placeholder="Phone No:" required>
+                    <mat-error>Phone Number is mandatory</mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <input formControlName="date_of_birth" matInput [matDatepicker]="picker" placeholder="Date of Birth"
+                           required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+
+
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="addStudentForm.invalid">Submit
+                    </button>
+                    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
+</form>
