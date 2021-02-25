@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
+import {StudentServiceService} from '../services/student-service.service';
+import moment from 'moment';
 
 @Component({
     selector: 'app-addstudent',
@@ -14,21 +17,13 @@ export class AddstudentComponent implements OnInit {
         {id: 'electrical_engineering', value: 'Electrical Engineering'},
         {id: 'bba', value: 'Bachelors in Business and Administration'}
     ];
-    addStudentForm: FormGroup = new FormGroup({
-        $key: new FormControl(null, Validators.required),
-        full_name: new FormControl('', Validators.required),
-        last_name: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        phone_number: new FormControl('', [Validators.minLength(11)]),
-        city: new FormControl('', Validators.required),
-        gender: new FormControl('male', Validators.required),
-        department: new FormControl(''),
-        date_of_birth: new FormControl(''),
-    });
+
     private srcResult: any;
 
     constructor(
-        private dialogRef: MatDialogRef<AddstudentComponent>
+        private dialogRef: MatDialogRef<AddstudentComponent>,
+        private toastr: ToastrService,
+        public studentService: StudentServiceService
     ) {
         // this.dialogRef.close();
     }
@@ -38,7 +33,7 @@ export class AddstudentComponent implements OnInit {
 
 
     onClear() {
-        this.addStudentForm.reset();
+        this.studentService.addStudentForm.reset();
     }
 
     close() {
@@ -47,6 +42,38 @@ export class AddstudentComponent implements OnInit {
 
 
     addStudent() {
-        console.log(this.addStudentForm.value);
+        console.log(this.studentService.addStudentForm.value);
+        if (this.studentService.addStudentForm.invalid) {
+            console.log(this.studentService.addStudentForm.value);
+            this.toastr.error('', 'Please fill required details');
+        } else {
+            const momentDate = new Date(this.studentService.addStudentForm.value.date_of_birth); // Replace event.value with your date value
+            this.studentService.addStudentForm.value.date_of_birth = moment(momentDate).format('YYYY/MM/DD');
+            if (this.studentService.addStudentForm.controls['id'].value) {
+                this.studentService.updateStudent(this.studentService.addStudentForm.value).subscribe(
+                    (data) => {
+                        this.toastr.success('', data['message']);
+                        this.dialogRef.close();
+
+
+                    }, (error) => {
+                        this.toastr.error('', error['message']);
+                    });
+            }
+            else
+            {
+
+            this.studentService.addStudent(this.studentService.addStudentForm.value).subscribe(
+                (data) => {
+                    this.toastr.success('', data['message']);
+                    this.dialogRef.close();
+
+
+                }, (error) => {
+                    this.toastr.error('', error['message']);
+                });
+            }
+
+        }
     }
 }

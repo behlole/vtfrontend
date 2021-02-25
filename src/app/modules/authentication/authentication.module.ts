@@ -11,6 +11,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import {ToastrModule} from 'ngx-toastr';
+import {HttpClient} from '@angular/common/http';
 
 
 const routes = [
@@ -36,6 +37,7 @@ const routes = [
       MatFormFieldModule,
       MatIconModule,
       MatInputModule,
+      ToastrModule,
   ]
 })
 export class AuthenticationModule { }

@@ -1,4 +1,7 @@
-<form [formGroup]="addStudentForm" class="normal-form">
+<mat-toolbar>
+    <span>{{studentService.addStudentForm.controls['id'].value?"Update Student":"New Employee"}}}</span>
+</mat-toolbar>
+<form (submit)="addStudent()" [formGroup]="studentService.addStudentForm" class="normal-form">
     <button mat-icon-button (click)="close()">
         <mat-icon>close</mat-icon>
     </button>
@@ -6,10 +9,9 @@
     <mat-grid-list cols="2" rowHeight="300px">
         <mat-grid-tile>
             <div class="controles-container">
-                <input type="hidden" formControlName="$key">
+                <input type="hidden" formControlName="id">
                 <mat-form-field style="width: 50%">
-                    <input formControlName="full_name" matInput placeholder="Full Name" required>
-                    <mat-error>Full Name is mandatory</mat-error>
+                    <input formControlName="first_name" matInput placeholder="Full Name" required>
                 </mat-form-field>
                 <mat-form-field style="width: 50%">
                     <input formControlName="last_name" matInput placeholder="Last Name" required>
@@ -26,7 +28,7 @@
                     <mat-select formControlName="department" placeholder="Department">
                         <mat-option>None</mat-option>
                         <ng-container *ngFor="let department of departments">
-                            <mat-option value="department.id">{{department.value}}</mat-option>
+                            <mat-option [value]="department.id">{{department.value}}</mat-option>
                         </ng-container>
                     </mat-select>
 
@@ -64,7 +66,7 @@
 
 
                 <div class="button-row">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="addStudentForm.invalid">Submit
+                    <button mat-raised-button color="primary" type="submit" >Submit
                     </button>
                     <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
                 </div>

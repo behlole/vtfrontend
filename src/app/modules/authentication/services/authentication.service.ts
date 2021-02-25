@@ -16,6 +16,7 @@ export class AuthenticationService {
 
   login(data)
   {
+      console.log(data);
       return this._http.post(environment.url+'auth/login',data)
   }
   logout()
