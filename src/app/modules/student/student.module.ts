@@ -11,8 +11,22 @@ import {
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule, MatIconModule
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
+    MatCardModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatToolbarModule,
 } from '@angular/material';
+import { AddstudentComponent } from './addstudent/addstudent.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FuseSharedModule} from '../../../@fuse/shared.module';
+import {StudentServiceService} from './services/student-service.service';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptorService} from '../authentication/services/token-interceptor.service';
 const routes = [
     {
         path: 'dashboard/students',
@@ -21,7 +35,7 @@ const routes = [
     },
 ];
 @NgModule({
-  declarations: [StudentComponent],
+  declarations: [StudentComponent,AddstudentComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -32,9 +46,27 @@ const routes = [
         MatInputModule,
         MatButtonModule,
         MatIconModule,
+        MatDialogModule,
+        MatCardModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatGridListModule,
+        MatRadioModule,
+        MatDatepickerModule,
+        FuseSharedModule,
+        MatToolbarModule
+
     ],
     providers:[
-        AuthGuard
+        AuthGuard,StudentServiceService,
+        {
+            provide:HTTP_INTERCEPTORS,
+            useClass:TokenInterceptorService,
+            multi:true,
+        }
+    ],
+    entryComponents:[
+        AddstudentComponent
     ]
 })
 export class StudentModule { }

@@ -1,0 +1,8 @@
+[33m6bd597d[m[33m ([m[1;36mHEAD -> [m[1;32mstudent[m[33m, [m[1;31morigin/student[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{0}: checkout: moving from 49a444cbde7c14611cf72ad0799719880499ace0 to student
+[33m49a444c[m HEAD@{1}: commit: Student add and update functionality with interceptor
+[33m6bd597d[m[33m ([m[1;36mHEAD -> [m[1;32mstudent[m[33m, [m[1;31morigin/student[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{2}: checkout: moving from master to origin/student
+[33m6bd597d[m[33m ([m[1;36mHEAD -> [m[1;32mstudent[m[33m, [m[1;31morigin/student[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{3}: commit (initial): student index with data table with applied authentication module
+[33md21df69[m[33m ([m[1;32mauthentication[m[33m)[m HEAD@{4}: commit: show students with datatable
+[33ma68b49d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{5}: checkout: moving from main to authentication
+[33ma68b49d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{6}: commit: Initialized repo with basic frontend
+[33mc2d44ce[m HEAD@{7}: clone: from https://github.com/behlole/vtfrontend.git
