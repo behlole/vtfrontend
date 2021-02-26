@@ -30,18 +30,15 @@ export class TokenInterceptorService implements HttpInterceptor {
         });
         return next.handle(tokenizeReq).pipe(
             tap(evt => {
-                if (evt instanceof HttpResponse) {
-                    if (evt.body && evt.body.success) {
-                        this.toasterService.success(evt.body.success.message, evt.body.success.title, {positionClass: 'toast-bottom-center'});
-                    }
-                }
+
             }),
             catchError((err: any) => {
                 if (err instanceof HttpErrorResponse) {
-                    try {
-                        this.toasterService.error(err.error.message, err.error.title, {positionClass: 'toast-bottom-center'});
-                    } catch (e) {
-                        this.toasterService.error('An error occurred', '', {positionClass: 'toast-bottom-center'});
+                    if(err.status==401)
+                    {
+                        localStorage.removeItem('token');
+                        this.toasterService.error("Please log in again !","Session Expired");
+                        this.router.navigate(['/login']);
                     }
                     //log error
                 }

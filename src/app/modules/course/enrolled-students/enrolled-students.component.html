@@ -1,0 +1,53 @@
+<mat-toolbar>
+    <button mat-stroked-button class="btn-dialog-close" (click)="close()" tabindex="-1" style="margin-right:1px: ">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+<div class="page-layout simple fullwidth docs" style="padding: 10px">
+
+    <mat-form-field class="search-form-field">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search a keyword of any student" #input>
+
+    </mat-form-field>
+    <div class="mat-elevation-z8" *ngIf="dataSource">
+
+
+        <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ID #</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="first_name">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>First Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.first_name}}</mat-cell>
+
+            </ng-container>
+            <ng-container matColumnDef="last_name">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Last Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.last_name}} </mat-cell>
+
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Email</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.email}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="phone_number">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Phone #</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.phone_number}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="gender">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Gender</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.gender}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+
+        </mat-table>
+
+    </div>
+</div>

@@ -27,6 +27,7 @@ import {FuseSharedModule} from '../../../@fuse/shared.module';
 import {StudentServiceService} from './services/student-service.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptorService} from '../authentication/services/token-interceptor.service';
+import { EnrollStudentComponent } from './enroll-student/enroll-student.component';
 const routes = [
     {
         path: 'dashboard/students',
@@ -35,7 +36,7 @@ const routes = [
     },
 ];
 @NgModule({
-  declarations: [StudentComponent,AddstudentComponent],
+  declarations: [StudentComponent,AddstudentComponent, EnrollStudentComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -66,7 +67,8 @@ const routes = [
         }
     ],
     entryComponents:[
-        AddstudentComponent
+        AddstudentComponent,
+        EnrollStudentComponent
     ]
 })
 export class StudentModule { }

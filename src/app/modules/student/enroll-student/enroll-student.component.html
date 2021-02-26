@@ -1,0 +1,30 @@
+<mat-toolbar>
+    <span>Enroll Student</span>
+    <button mat-stroked-button class="btn-dialog-close" (click)="close()" tabindex="-1" style="margin-right:1px; ">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+<form (submit)="enrollStudent()" [formGroup]="studentService.courseForm">
+
+    <input type="hidden" formControlName="id">
+    <mat-grid-list cols="2" rowHeight="200px">
+        <mat-grid-tile>
+            <input type="hidden" formControlName="student_id">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Courses</mat-label>
+                    <mat-select formControlName="course_id" multiple>
+                        <mat-option *ngFor="let course of courses" [value]="course.id">{{course.course_name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="button-row">
+                <button mat-raised-button color="primary" type="submit">Submit</button>
+                <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
+</form>

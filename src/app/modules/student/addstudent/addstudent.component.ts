@@ -4,13 +4,14 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {StudentServiceService} from '../services/student-service.service';
 import moment from 'moment';
+import {StudentComponent} from '../student.component';
 
 @Component({
     selector: 'app-addstudent',
     templateUrl: './addstudent.component.html',
     styleUrls: ['./addstudent.component.scss']
 })
-export class AddstudentComponent implements OnInit {
+export class AddstudentComponent{
     departments = [
         {id: 'software_engineering', value: 'Software Engineering'},
         {id: 'computer_science', value: 'Computer Science'},
@@ -23,13 +24,8 @@ export class AddstudentComponent implements OnInit {
     constructor(
         private dialogRef: MatDialogRef<AddstudentComponent>,
         private toastr: ToastrService,
-        public studentService: StudentServiceService
-    ) {
-        // this.dialogRef.close();
-    }
-
-    ngOnInit() {
-    }
+        public studentService: StudentServiceService,
+    ) {}
 
 
     onClear() {
@@ -42,7 +38,6 @@ export class AddstudentComponent implements OnInit {
 
 
     addStudent() {
-        console.log(this.studentService.addStudentForm.value);
         if (this.studentService.addStudentForm.invalid) {
             console.log(this.studentService.addStudentForm.value);
             this.toastr.error('', 'Please fill required details');
@@ -53,25 +48,24 @@ export class AddstudentComponent implements OnInit {
                 this.studentService.updateStudent(this.studentService.addStudentForm.value).subscribe(
                     (data) => {
                         this.toastr.success('', data['message']);
-                        this.dialogRef.close();
+                        this.dialogRef.close(true);
 
 
                     }, (error) => {
                         this.toastr.error('', error['message']);
                     });
-            }
-            else
-            {
+            } else {
 
-            this.studentService.addStudent(this.studentService.addStudentForm.value).subscribe(
-                (data) => {
-                    this.toastr.success('', data['message']);
-                    this.dialogRef.close();
+                this.studentService.addStudent(this.studentService.addStudentForm.value).subscribe(
+                    (data) => {
+                        this.toastr.success('', data['message']);
+                        this.dialogRef.close(true);
 
 
-                }, (error) => {
-                    this.toastr.error('', error['message']);
-                });
+
+                    }, (error) => {
+                        this.toastr.error('', error['message']);
+                    });
             }
 
         }

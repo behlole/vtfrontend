@@ -1,3 +1,55 @@
-<p>
-  course works!
-</p>
+<div class="page-layout simple fullwidth docs" style="padding: 10px">
+    <button mat-raised-button (click)="create()">
+        <mat-icon>add</mat-icon>Create
+    </button>
+    <mat-form-field class="search-form-field" >
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search a keyword of any student" #input>
+
+    </mat-form-field>
+    <div class="mat-elevation-z8" *ngIf="dataSource">
+
+
+        <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ID #</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Course Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.course_name}}</mat-cell>
+
+            </ng-container>
+            <ng-container matColumnDef="students">
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Students</mat-header-cell>
+                <mat-cell *matCellDef="let element"><button mat-icon-button color="primary" title="list all enrolled students" (click)="listEnrolled(element)"><mat-icon>menu</mat-icon></button>  </mat-cell>
+
+            </ng-container>
+
+
+            <ng-container matColumnDef="actions">
+
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-icon-button (click)="onEdit(row)">
+                        <mat-icon title="view details of course">launch</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="onDelete(row)">
+                        <mat-icon title="delete student">delete_outline</mat-icon>
+                    </button>
+
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </mat-table>
+
+    </div>
+</div>

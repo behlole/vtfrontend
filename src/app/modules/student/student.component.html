@@ -55,11 +55,11 @@
                     <button mat-icon-button (click)="onEdit(row)">
                         <mat-icon title="view details of student">launch</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn">
+                    <button mat-icon-button color="warn" (click)="onDelete(row)">
                         <mat-icon title="delete student">delete_outline</mat-icon>
                     </button>
-                    <button mat-icon-button *ngIf="row.is_enrolled==null">
-                        <mat-icon title="enroll student">add</mat-icon>
+                    <button mat-icon-button *ngIf="row.is_enrolled==null" (click)="openEnrolDialog(row)">
+                        <mat-icon title="enroll student" >add</mat-icon>
                     </button>
 
                     <button mat-icon-button *ngIf="row.is_enrolled!=null">

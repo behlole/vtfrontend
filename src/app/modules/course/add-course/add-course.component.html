@@ -1,0 +1,26 @@
+<mat-toolbar>
+    <span>{{courseService.addCourseForm.controls['id'].value ? "Update Course" : "New Course"}}</span>
+    <button mat-stroked-button class="btn-dialog-close" (click)="close()" tabindex="-1" style="margin-right:1px: ">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+<form (submit)="addCourse()" [formGroup]="courseService.addCourseForm">
+
+    <input type="hidden" formControlName="id">
+    <mat-grid-list cols="2" rowHeight="200px">
+        <mat-grid-tile>
+            <mat-form-field>
+                <input formControlName="course_name" matInput placeholder="Course name" required>
+                <mat-error>Course Name is mandatory</mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="button-row">
+                <button mat-raised-button color="primary" type="submit">Submit</button>
+                <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
+</form>
