@@ -23,11 +23,26 @@ export class TokenInterceptorService implements HttpInterceptor {
         req: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        let tokenizeReq = req.clone({
-            setHeaders: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
-        });
+        let tokenizeReq;
+
+        if(localStorage.getItem('user')) {
+            let token=JSON.parse(localStorage.getItem('user'));
+             tokenizeReq = req.clone({
+                setHeaders: {
+                    Authorization: 'Bearer ' + token.token
+                }
+            });
+        }
+        else
+        {
+             tokenizeReq = req.clone({
+                setHeaders: {
+                    Authorization: ''
+                }
+            });
+        }
+
+
         return next.handle(tokenizeReq).pipe(
             tap(evt => {
 

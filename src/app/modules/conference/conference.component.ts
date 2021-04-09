@@ -1,93 +1,206 @@
-import {Component, OnInit} from '@angular/core';
-import Peer from 'peerjs';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {FuseConfigService} from '../../../@fuse/services/config.service';
+import {environment} from '../../../environments/environment';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ConferenceService} from './services/conference.service';
+import {ToastrService} from 'ngx-toastr';
+
+declare var JitsiMeetExternalAPI: any;
 
 @Component({
     selector: 'app-conference',
     templateUrl: './conference.component.html',
     styleUrls: ['./conference.component.scss']
 })
-export class ConferenceComponent implements OnInit {
+export class ConferenceComponent implements AfterViewInit, OnInit {
 
-    private peer: Peer;
-    peerId: string;
-    peerIdShare: string;
-    private lazyStream: any;
-    currentPeer: any;
-    private peerList: Array<any> = [];
+    meetingCode = Math.random().toString(36).substring(2);
+    title = 'Meeting';
+    domain: string = environment.videoServer;
+    studentOptions: any;
+    teacherOptions: any;
+    api: any;
+    course: any;
+    courseId: any;
+    roleType: any;
 
-    constructor() {
-        this.peer = new Peer();
+    constructor(
+        private _fuseConfigService: FuseConfigService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private conferenceService: ConferenceService,
+        private toaster: ToastrService) {
+        this._fuseConfigService.config = {
+            layout: {
+                navbar: {
+                    hidden: true
+                },
+                toolbar: {
+                    hidden: true
+                },
+                footer: {
+                    hidden: true
+                },
+                sidepanel: {
+                    hidden: true
+                },
+            }
+        };
     }
 
-    ngOnInit() {
-        this.getPeerId();
-    }
+    ngOnInit(): void {
+        this.route.queryParams.subscribe(params => {
+            this.course = params['course_name'];
+            this.courseId = params['course_id'];
+            this.meetingCode = this.meetingCode + '-' + this.course;
 
-    private getPeerId = () => {
-        this.peer.on('open', (id) => {
-            this.peerId = id;
+            if (params['course_code']) {
+                this.meetingCode = params['course_code'];
+            }
         });
-    };
-
-    connectWithPeer() {
-        this.callPeer(this.peerIdShare);
     }
 
-    private callPeer(id: string): void {
-        navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true
-        }).then((stream) => {
-            this.lazyStream = stream;
+    ngAfterViewInit() {
+        this.startMeeting();
+        console.log("role type is",this.roleType);
+        if(this.roleType==1)
+        {
+            this.api = new JitsiMeetExternalAPI(this.domain, this.teacherOptions);
+        }
+        else if(this.roleType==2)
+        {
+            this.api = new JitsiMeetExternalAPI(this.domain, this.studentOptions);
+        }
 
-            const call = this.peer.call(id, stream);
-            call.on('stream', (remoteStream) => {
-                if (!this.peerList.includes(call.peer)) {
-                    this.streamRemoteVideo(remoteStream);
-                    this.currentPeer = call.peerConnection;
-                    this.peerList.push(call.peer);
+        if (this.roleType == 1) {
+            this.api.addEventListeners({
+                participantJoined: function(result) {
+                },
+                videoConferenceLeft: () => this.endMeeting().subscribe(data => {
+                }),
+                videoConferenceJoined: () => this.informStudents().subscribe(result => {
+                        if (result['error']) {
+                            this.toaster.error(result['message']);
+                        } else {
+                            this.toaster.success(result['message']);
+                        }
+                    },
+                    error => {
+                        this.toaster.error(error);
+                    })
+            });
+        } else if (this.roleType == 2) {
+            this.api.addEventListeners({
+
+                videoConferenceLeft: () => this.recordActivity('Left-Meeting').subscribe(data => {
+                    this.toaster.success('Meeting Left Successfully ');
+                }),
+                videoConferenceJoined: () => {
+                    this.recordActivity('Joined-Meeting').subscribe(result => {
+                            if (result['error']) {
+                                this.toaster.error(result['message']);
+                            } else {
+                                this.toaster.success(result['message']);
+                            }
+                        },
+                        error => {
+                            this.toaster.error(error);
+                        });
+                },
+                audioMuteStatusChanged: () => {
+                    this.recordActivity('Audio-Status-Changed').subscribe(
+                        data => {
+                            console.log('mic toggled');
+                        },
+                        error => {
+                            console.log('error');
+                        }
+                    );
+                },
+                screenSharingStatusChanged: () => {
+                    this.recordActivity('Screen-Sharing-Status-Changed').subscribe(
+                        data => {
+                            console.log('screen shared');
+                        },
+                        error => {
+
+                        }
+                    );
+                },
+                videoMuteStatusChanged: () => {
+                    this.recordActivity('Video-Status-Changed').subscribe(
+                        data => {
+                            console.log('video on');
+                        }
+                    );
                 }
             });
-        }).catch(err => {
-            console.log(err + 'Unable to connect');
-        });
+        }
     }
 
+    endMeeting() {
+        return this.conferenceService.endMeeting(this.meetingCode);
 
-    private streamRemoteVideo(stream) {
-        const video = document.createElement('video');
-        video.classList.add('video');
-        video.srcObject = stream;
-        video.play();
-        document.getElementById('remote-video').append(video);
     }
 
-    private screenShare() {
-        // @ts-ignore
-        navigator.mediaDevices.getDisplayMedia({
-            video: {
-                cursor: 'always'
+    startMeeting() {
+        let data = JSON.parse(localStorage.getItem('user'));
+        let first_name = data.user.first_name;
+        let last_name = data.user.last_name;
+        let email = data.user.email;
+        this.roleType = data.user.role_type;
+        this.studentOptions = {
+            roomName: this.meetingCode,
+            userInfo: {
+                email: email,
+                displayName: first_name + ' ' + last_name
             },
-            audio: {
-                echoCancellation: true,
-                noiseSuppression: true
-            }
-        }).then(stream => {
-            const videoTrack = stream.getVideoTracks()[0];
-            videoTrack.onended = () => {
-                this.stopScreenShare();
-            };
+            configOverwrite:
+                {
+                    remoteVideoMenu: {
+                        disableKick: true
+                    },
+                    enableWelcomePage: false,
+                    prejoinPageEnabled: true,
+                },
+            interfaceConfigOverwrite: {
+                SHOW_JITSI_WATERMARK: false,
+                SHOW_WATERMARK_FOR_GUESTS: false,
+                TOOLBAR_BUTTONS: ['microphone', 'camera', 'tileview','hangup','chat','profile','help'],
+            },
 
-            const sender = this.currentPeer.getSenders().find(s => s.track.kind === videoTrack.kind);
-            sender.replaceTrack(videoTrack);
-        }).catch(err => {
-            console.log('Unable to get display media ' + err);
-        });
+            parentNode: document.querySelector('#meet')
+        };
+        this.teacherOptions = {
+            roomName: this.meetingCode,
+            userInfo: {
+                email: email,
+                displayName: first_name + ' ' + last_name
+            },
+            configOverwrite:
+                {
+                    remoteVideoMenu: {
+                        disableKick: true
+                    },
+                    enableWelcomePage: false,
+                    prejoinPageEnabled: true,
+                },
+            interfaceConfigOverwrite: {
+                SHOW_JITSI_WATERMARK: false,
+                SHOW_WATERMARK_FOR_GUESTS: false,
+            },
+
+            parentNode: document.querySelector('#meet')
+        };
+
     }
 
-    private stopScreenShare() {
-        const videoTrack = this.lazyStream.getVideoTracks()[0];
-        const sender = this.currentPeer.getSenders().find(s => s.track.kind === videoTrack.kind);
-        sender.replaceTrack(videoTrack);
+    informStudents() {
+        return this.conferenceService.informStudents(this.courseId, this.meetingCode);
+    }
+
+    recordActivity(activity) {
+        return this.conferenceService.recordActivity(this.meetingCode, activity);
     }
 }
+

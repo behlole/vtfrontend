@@ -25,6 +25,10 @@ import { ConferenceComponent } from './modules/conference/conference.component';
 import {AuthGuard} from './modules/authentication/guards/auth-guard.guard';
 import {StudentModule} from './modules/student/student.module';
 import {CourseModule} from './modules/course/course.module';
+import {TeachersModule} from './modules/teachers/teachers.module';
+import { StudentCoursesComponent } from './modules/student-courses/student-courses.component';
+import {StudentCoursesModule} from './modules/student-courses/student-courses.module';
+import {MeetingModule} from './modules/meeting/meeting.module';
 const appRoutes: Routes = [
     {
         path: 'login',
@@ -47,11 +51,23 @@ const appRoutes: Routes = [
                 path:'',
                 component:SampleComponent,
             },
-            {
-                path:'sample',
-                component:ConferenceComponent
-            }
+
+
         ]
+    },
+    {
+      path:'student-dashboard',
+      canActivate:[AuthGuard],
+      children:[
+          {
+              path:'',
+              component:StudentCoursesComponent
+          }
+      ]
+    },
+    {
+        path:'conference',
+        component:ConferenceComponent
     }
 ];
 @NgModule({
@@ -99,7 +115,9 @@ const appRoutes: Routes = [
         SampleModule,
         StudentModule,
         CourseModule,
-
+        TeachersModule,
+        StudentCoursesModule,
+        MeetingModule
 
     ],
     providers:[

@@ -21,7 +21,8 @@ export class CourseComponent implements OnInit {
     dataSource: MatTableDataSource<any>;
 
     displayedColumns: string[] = ['id', 'name', 'students', 'actions'];
-
+    roleType:String
+    data:any;
     constructor(
         private toaster: ToastrService,
         private courseService: CourseServiceService,
@@ -32,6 +33,15 @@ export class CourseComponent implements OnInit {
     ngOnInit() {
         this.dataSource = new MatTableDataSource();
         this.getCourses();
+        this.data=JSON.parse(localStorage.getItem('user'));
+        if(this.data.user.role_type==1)
+        {
+            this.roleType='teacher';
+        }
+        else
+        {
+            this.roleType='student';
+        }
     }
 
     getCourses() {
@@ -119,4 +129,7 @@ export class CourseComponent implements OnInit {
         // });
     }
 
+    joinMeeting(row) {
+        
+    }
 }

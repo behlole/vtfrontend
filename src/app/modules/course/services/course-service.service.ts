@@ -53,4 +53,8 @@ export class CourseServiceService {
     getEnrolled(id) {
         return this.http.get(environment.url+`teacher/courses/get-enrolled/${id}`);
     }
+
+    getAllCoursesForStudent() {
+        return this.http.get(environment.url + 'student/courses/');
+    }
 }

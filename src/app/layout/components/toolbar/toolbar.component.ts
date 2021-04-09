@@ -117,10 +117,11 @@ export class ToolbarComponent implements OnInit, OnDestroy
         this.selectedLanguage = _.find(this.languages, {id: this._translateService.currentLang});
 
         //fetching values from localstorage
-
-        console.log(localStorage.getItem('email'));
-        this.first_name=localStorage.getItem('first_name');
-        this.last_name=localStorage.getItem('last_name');
+        if(localStorage.getItem('user')) {
+            let data = JSON.parse(localStorage.getItem('user'));
+            this.first_name = data.user.first_name
+            this.last_name = data.user.last_name;
+        }
     }
 
     /**
