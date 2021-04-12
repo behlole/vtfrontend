@@ -27,4 +27,8 @@ export class AuthenticationService {
   {
       return !!JSON.parse(localStorage.getItem('user'));
   }
+
+    register(value: any) {
+        return this._http.post(environment.url+'auth/register',value);
+    }
 }

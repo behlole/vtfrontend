@@ -39,7 +39,6 @@ export class AddstudentComponent{
 
     addStudent() {
         if (this.studentService.addStudentForm.invalid) {
-            console.log(this.studentService.addStudentForm.value);
             this.toastr.error('', 'Please fill required details');
         } else {
             const momentDate = new Date(this.studentService.addStudentForm.value.date_of_birth); // Replace event.value with your date value

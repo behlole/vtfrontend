@@ -4,19 +4,20 @@ import {
     HttpRequest,
     HttpEvent,
     HttpResponse,
-    HttpErrorResponse
+    HttpErrorResponse, HttpClient
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {tap, catchError} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
-    constructor(private router: Router, private toasterService: ToastrService) {
+    constructor(private router: Router, private toasterService: ToastrService,private http:HttpClient) {
     }
 
     intercept(
@@ -45,7 +46,6 @@ export class TokenInterceptorService implements HttpInterceptor {
 
         return next.handle(tokenizeReq).pipe(
             tap(evt => {
-
             }),
             catchError((err: any) => {
                 if (err instanceof HttpErrorResponse) {

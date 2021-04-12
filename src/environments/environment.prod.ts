@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
     hmr       : false,
-    url:'http://localhost:8000/',
+    url:'https://vtbackend.qalumguru.com/',
     videoServer:'meet.jit.si'
 };
