@@ -73,21 +73,12 @@ export class LoginComponent implements OnInit
         }
         this.authenticationService.login(data).subscribe({
             next(data){
-                console.log(data['token']);
-                localStorage.setItem('token',data['token'],);
-                localStorage.setItem('email',data['user'].email);
-                localStorage.setItem('user_id',data['user'].id);
-                localStorage.setItem('role_type',data['user'].role_type);
-                localStorage.setItem('role_id',data['user'].role_id);
-                localStorage.setItem('first_name',data['user'].first_name);
-                localStorage.setItem('last_name',data['user'].last_name);
-                localStorage.setItem('profile_pic',data['user'].profile_pic);
+                localStorage.setItem('user',JSON.stringify(data));
                 route.navigate(['dashboard'])
                 toaster.success("Success","Logged in Successfully!")
 
             },
             error(message){
-                console.log(message);
                 toaster.error("Error",message.message);
             }
         });

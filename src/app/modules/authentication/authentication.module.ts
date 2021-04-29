@@ -12,6 +12,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import {ToastrModule} from 'ngx-toastr';
 import {HttpClient} from '@angular/common/http';
+import {MatRadioModule, MatSelectModule, MatTabsModule} from '@angular/material';
+import { ProfileComponent } from './profile/profile.component';
+import {ProfileModule} from './profile/profile.module';
 
 
 const routes = [
@@ -22,22 +25,31 @@ const routes = [
     {
         path:'auth/register',
         component:RegisterComponent
+    },
+    {
+        path:'auth/profile',
+        component:ProfileComponent
     }
 ];
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
-  imports: [
-      CommonModule,
-      BrowserAnimationsModule,
-      RouterModule.forChild(routes),
-      FuseSharedModule,
-      MatFormFieldModule,
-      MatButtonModule,
-      MatCheckboxModule,
-      MatFormFieldModule,
-      MatIconModule,
-      MatInputModule,
-      ToastrModule,
-  ]
+    imports: [
+        CommonModule,
+        BrowserAnimationsModule,
+        RouterModule.forChild(routes),
+        FuseSharedModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        ToastrModule,
+        MatRadioModule,
+        MatInputModule,
+        MatSelectModule,
+        ProfileModule,
+        MatTabsModule,
+    ]
 })
 export class AuthenticationModule { }

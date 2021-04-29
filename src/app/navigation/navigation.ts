@@ -1,4 +1,4 @@
-import { FuseNavigation } from '@fuse/types';
+import {FuseNavigation} from '@fuse/types';
 
 export const navigation: FuseNavigation[] = [
     {
@@ -8,26 +8,36 @@ export const navigation: FuseNavigation[] = [
         type     : 'group',
         children : [
             {
-                id       : 'All Students',
-                title    : 'Students',
-                translate: 'NAV.STUDENTS.TITLE',
-                type     : 'item',
-                icon     : 'book',
-                url      : '/dashboard/students',
-                badge    : {
-                    title    : '25',
-                    translate: 'NAV.STUDENTS.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                },
+                id: 'Dashboard',
+                title: 'Dashboard',
+                translate: 'Dashboard',
+                type: 'item',
+                icon: 'home',
+                url: 'dashboard',
             },
             {
-                id       : 'All Courses',
-                title    : 'Courses',
+                id: 'All Students',
+                title: 'Students',
+                translate: 'NAV.STUDENTS.TITLE',
+                type: 'item',
+                icon: 'school',
+                url: 'dashboard/students',
+            },
+            {
+                id: 'All Courses',
+                title: 'Courses',
                 translate: 'COURSES.TITLE',
-                type     : 'item',
-                icon     : 'book',
-                url      : 'dashboard/courses',
+                type: 'item',
+                icon: 'book',
+                url: 'dashboard/courses',
+            },
+            {
+                id: 'All Meetings',
+                title: 'Meetings',
+                translate: 'MEETINGS.TITLE',
+                type: 'item',
+                icon: 'stars',
+                url: 'dashboard/meetings',
             }
         ]
     }

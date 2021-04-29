@@ -121,9 +121,12 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
             });
 
         //assigning dynamic user data
-        this.first_name=localStorage.getItem('first_name');
-        this.last_name=localStorage.getItem('last_name');
-        this.role_type=localStorage.getItem('role_type');
+        if(localStorage.getItem('user')) {
+            let data = JSON.parse(localStorage.getItem('user'))
+            this.first_name = data.user.first_name
+            this.last_name = data.user.last_name;
+            this.role_type = data.user.role_type;
+        }
 
 
     }

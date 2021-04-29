@@ -9,6 +9,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
 import {AuthenticationService} from '../../../modules/authentication/services/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector     : 'toolbar',
@@ -44,7 +45,8 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
-        private auth:AuthenticationService
+        private auth:AuthenticationService,
+        private router:Router
     )
     {
         // Set the defaults
@@ -117,10 +119,11 @@ export class ToolbarComponent implements OnInit, OnDestroy
         this.selectedLanguage = _.find(this.languages, {id: this._translateService.currentLang});
 
         //fetching values from localstorage
-
-        console.log(localStorage.getItem('email'));
-        this.first_name=localStorage.getItem('first_name');
-        this.last_name=localStorage.getItem('last_name');
+        if(localStorage.getItem('user')) {
+            let data = JSON.parse(localStorage.getItem('user'));
+            this.first_name = data.user.first_name
+            this.last_name = data.user.last_name;
+        }
     }
 
     /**
@@ -174,5 +177,10 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     logout() {
         this.auth.logout();
+    }
+
+    showProfile() {
+        this.router.navigate(['auth/profile']);
+
     }
 }

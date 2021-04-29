@@ -7,6 +7,7 @@ import {CourseServiceService} from './services/course-service.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AddCourseComponent} from './add-course/add-course.component';
 import {EnrolledStudentsComponent} from './enrolled-students/enrolled-students.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-course',
@@ -21,17 +22,30 @@ export class CourseComponent implements OnInit {
     dataSource: MatTableDataSource<any>;
 
     displayedColumns: string[] = ['id', 'name', 'students', 'actions'];
-
+    roleType:String
+    data:any;
     constructor(
         private toaster: ToastrService,
         private courseService: CourseServiceService,
         private dialog: MatDialog,
+        private spinner:NgxSpinnerService
     ) {
     }
 
     ngOnInit() {
+        this.spinner.show();
         this.dataSource = new MatTableDataSource();
         this.getCourses();
+        this.data=JSON.parse(localStorage.getItem('user'));
+        if(this.data.user.role_type==1)
+        {
+            this.roleType='teacher';
+        }
+        else
+        {
+            this.roleType='student';
+        }
+        this.spinner.hide();
     }
 
     getCourses() {
@@ -55,7 +69,6 @@ export class CourseComponent implements OnInit {
     create() {
         this.courseService.initializeForm();
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '30%';
         let dialogRef = this.dialog.open(AddCourseComponent, dialogConfig);
@@ -67,7 +80,6 @@ export class CourseComponent implements OnInit {
     onEdit(row) {
         this.courseService.patchValue(row);
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '30%';
         let dialogRef = this.dialog.open(AddCourseComponent, dialogConfig);
@@ -97,26 +109,9 @@ export class CourseComponent implements OnInit {
                 this.getCourses();
             }
         });
-        // this.courseService.getEnrolled(row.id).subscribe((data:any)=>{
-        //    if(data.error)
-        //    {
-        //        this.toaster.error(data.message)
-        //    }
-        //    else
-        //    {
-        //        const dialogConfig = new MatDialogConfig();
-        //        dialogConfig.disableClose = true;
-        //        dialogConfig.autoFocus = true;
-        //        dialogConfig.width = '60%';
-        //        let dialogRef=this.dialog.open(EnrolledStudentsComponent, dialogConfig);
-        //        dialogRef.afterClosed().subscribe((completed)=>{
-        //            if(completed==true)
-        //            {
-        //                this.getCourses();
-        //            }
-        //        })
-        //    }
-        // });
     }
 
+    joinMeeting(row) {
+        
+    }
 }

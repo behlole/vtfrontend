@@ -16,18 +16,19 @@ export class AuthenticationService {
 
   login(data)
   {
-      console.log(data);
       return this._http.post(environment.url+'auth/login',data)
   }
   logout()
   {
-      localStorage.getItem('token')
-      localStorage.removeItem('token');
+      localStorage.removeItem('user');
       this.router.navigate((['/login']));
-      console.log(localStorage.getItem('token'));
   }
   loggedIn()
   {
-      return !!localStorage.getItem('token');
+      return !!JSON.parse(localStorage.getItem('user'));
   }
+
+    register(value: any) {
+        return this._http.post(environment.url+'auth/register',value);
+    }
 }

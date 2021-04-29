@@ -11,10 +11,11 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
-import { navigation } from 'app/navigation/navigation';
+import { navigation} from 'app/navigation/navigation';
+import {StudentNavigation} from 'app/navigation/StudentNavigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
-
+import {GuestNavigation} from './navigation/GuestNavigation';
 @Component({
     selector   : 'app',
     templateUrl: './app.component.html',
@@ -51,8 +52,20 @@ export class AppComponent implements OnInit, OnDestroy
         private _platform: Platform
     )
     {
-        // Get default navigation
-        this.navigation = navigation;
+        //Get default navigation
+        if(localStorage.getItem('user')) {
+            let details=JSON.parse(localStorage.getItem('user'));
+            if (details.user.role_type == 1) {
+                this.navigation = navigation;
+            } else if (details.user.role_type == 2)  {
+                this.navigation = StudentNavigation;
+            }
+        }
+        else
+        {
+            this.navigation=GuestNavigation
+        }
+        // this.navigation = StudentNavigation;
 
         // Register the navigation to the service
         this._fuseNavigationService.register('main', this.navigation);

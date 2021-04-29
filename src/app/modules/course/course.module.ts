@@ -22,11 +22,10 @@ const routes=[
         path:'dashboard/courses',
         canActivate:[AuthGuard],
         component:CourseComponent
-
-    }
+    },
 ]
 @NgModule({
-  declarations: [CourseComponent, AddCourseComponent, EnrolledStudentsComponent],
+    declarations: [CourseComponent, AddCourseComponent, EnrolledStudentsComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -42,15 +41,18 @@ const routes=[
         MatGridListModule,
         MatSortModule,
     ],
-    providers:[
-        AuthGuard,CourseServiceService,
+    providers: [
+        AuthGuard, CourseServiceService,
         {
-            provide:HTTP_INTERCEPTORS,
-            useClass:TokenInterceptorService,
-            multi:true,
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true,
         }
     ],
-    entryComponents:[
+    exports: [
+        CourseComponent
+    ],
+    entryComponents: [
         AddCourseComponent,
         EnrolledStudentsComponent
     ]

@@ -1,5 +1,16 @@
 <div class="page-layout blank p-24" fusePerfectScrollbar>
+    <mat-grid-list cols="12" >
+        <mat-grid-tile [colspan]="6" [rowspan]="6">
+            <mat-grid-tile-header>All Meetings</mat-grid-tile-header>
+<!--            <app-all-meetings></app-all-meetings>-->
 
-    <h2>{{'SAMPLE.HELLO' | translate}}</h2>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="6" [rowspan]="6">
+            <mat-grid-tile-header>All Courses</mat-grid-tile-header>
+<!--            <app-course></app-course>-->
+        </mat-grid-tile>
+    </mat-grid-list>
+
 
 </div>

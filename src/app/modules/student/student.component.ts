@@ -8,6 +8,8 @@ import {AddstudentComponent} from './addstudent/addstudent.component';
 import {error} from 'util';
 import {ToastrService} from 'ngx-toastr';
 import {EnrollStudentComponent} from './enroll-student/enroll-student.component';
+import {NgxSpinner} from 'ngx-spinner/lib/ngx-spinner.enum';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-student',
@@ -27,7 +29,8 @@ export class StudentComponent implements OnInit {
     constructor(
         private studentService: StudentServiceService,
         private dialog: MatDialog,
-        private toaster:ToastrService
+        private toaster:ToastrService,
+        private spinner:NgxSpinnerService
     ) {
     }
 
@@ -35,9 +38,10 @@ export class StudentComponent implements OnInit {
 
 
     ngOnInit(): void {
-
+        this.spinner.show();
         this.dataSource = new MatTableDataSource(); // create new object
         this.getStudents(); // forgeted this line
+        this.spinner.hide();
 
 
     }
@@ -64,16 +68,20 @@ export class StudentComponent implements OnInit {
     create() {
         this.studentService.initializeForm();
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '60%';
         this.dialog.open(AddstudentComponent, dialogConfig);
+        let dialoagRef = this.dialog.open(AddstudentComponent, dialogConfig);
+        dialoagRef.afterClosed().subscribe((confirmed: boolean) => {
+            if (confirmed) {
+                this.getStudents();
+            }
+        });
     }
 
     onEdit(row) {
         this.studentService.patchValues(row);
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '60%';
         let dialoagRef = this.dialog.open(AddstudentComponent, dialogConfig);

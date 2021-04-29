@@ -1,40 +1,49 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/internal/operators';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/internal/operators';
 
-import { FuseConfigService } from '@fuse/services/config.service';
-import { fuseAnimations } from '@fuse/animations';
+import {FuseConfigService} from '@fuse/services/config.service';
+import {fuseAnimations} from '@fuse/animations';
+import {AuthenticationService} from '../services/authentication.service';
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
-    selector     : 'register',
-    templateUrl  : './register.component.html',
-    styleUrls    : ['./register.component.scss'],
+    selector: 'register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class RegisterComponent implements OnInit, OnDestroy
-{
+export class RegisterComponent implements OnInit, OnDestroy {
     registerForm: FormGroup;
-
+    departments = [
+        {id: 'software_engineering', value: 'Software Engineering'},
+        {id: 'computer_science', value: 'Computer Science'},
+        {id: 'electrical_engineering', value: 'Electrical Engineering'},
+        {id: 'bba', value: 'Bachelors in Business and Administration'}
+    ];
     // Private
     private _unsubscribeAll: Subject<any>;
 
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
-    )
-    {
+        private _formBuilder: FormBuilder,
+        private authService: AuthenticationService,
+        private router:Router,
+        private toaster:ToastrService
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
-                navbar   : {
+                navbar: {
                     hidden: true
                 },
-                toolbar  : {
+                toolbar: {
                     hidden: true
                 },
-                footer   : {
+                footer: {
                     hidden: true
                 },
                 sidepanel: {
@@ -57,10 +66,16 @@ export class RegisterComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         this.registerForm = this._formBuilder.group({
-            name           : ['', Validators.required],
-            email          : ['', [Validators.required, Validators.email]],
-            password       : ['', Validators.required],
-            passwordConfirm: ['', [Validators.required, confirmPasswordValidator]]
+            first_name: ['', Validators.required],
+            last_name: ['', Validators.required],
+            gender: ['male', Validators.required],
+            phone_number: ['', Validators.required],
+            city: ['', Validators.required],
+            department: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', Validators.required],
+            passwordConfirm: ['', [Validators.required, confirmPasswordValidator]],
+            role_type: [1, Validators.required]
         });
 
         // Update the validity of the 'passwordConfirm' field
@@ -75,11 +90,27 @@ export class RegisterComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
+    }
+
+    register() {
+        var route=this.router;
+        var toaster=this.toaster;
+        this.authService.register(this.registerForm.value).subscribe((data) => {
+                localStorage.setItem('user',JSON.stringify(data));
+                console.log(data);
+                // route.navigate(['dashboard'])
+                route.navigateByUrl('/dashboard');
+                toaster.success("Success","Logged in Successfully!")
+            },
+            (error) => {
+                toaster.error("Error",error.message);
+            });
+
+
     }
 }
 
