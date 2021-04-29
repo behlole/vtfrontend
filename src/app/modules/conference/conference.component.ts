@@ -4,6 +4,7 @@ import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConferenceService} from './services/conference.service';
 import {ToastrService} from 'ngx-toastr';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -29,7 +30,8 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private conferenceService: ConferenceService,
-        private toaster: ToastrService) {
+        private toaster: ToastrService,
+        private spinner:NgxSpinnerService) {
         this._fuseConfigService.config = {
             layout: {
                 navbar: {
@@ -61,8 +63,9 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     }
 
     ngAfterViewInit() {
+        this.spinner.show();
         this.startMeeting();
-        console.log("role type is",this.roleType);
+        this.spinner.hide();
         if(this.roleType==1)
         {
             this.api = new JitsiMeetExternalAPI(this.domain, this.teacherOptions);
@@ -77,6 +80,9 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                 participantJoined: function(result) {
                 },
                 videoConferenceLeft: () => this.endMeeting().subscribe(data => {
+                    this.toaster.success("Meeting ended successfully");
+                    this.api.executeCommand('hangup');
+                    this.router.navigate(['dashboard']);
                 }),
                 videoConferenceJoined: () => this.informStudents().subscribe(result => {
                         if (result['error']) {
@@ -87,12 +93,13 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                     },
                     error => {
                         this.toaster.error(error);
-                    })
+                    }),
             });
         } else if (this.roleType == 2) {
             this.api.addEventListeners({
 
                 videoConferenceLeft: () => this.recordActivity('Left-Meeting').subscribe(data => {
+                    this.router.navigate(['dashboard']);
                     this.toaster.success('Meeting Left Successfully ');
                 }),
                 videoConferenceJoined: () => {
@@ -110,17 +117,14 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                 audioMuteStatusChanged: () => {
                     this.recordActivity('Audio-Status-Changed').subscribe(
                         data => {
-                            console.log('mic toggled');
                         },
                         error => {
-                            console.log('error');
                         }
                     );
                 },
                 screenSharingStatusChanged: () => {
                     this.recordActivity('Screen-Sharing-Status-Changed').subscribe(
                         data => {
-                            console.log('screen shared');
                         },
                         error => {
 
@@ -130,15 +134,15 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                 videoMuteStatusChanged: () => {
                     this.recordActivity('Video-Status-Changed').subscribe(
                         data => {
-                            console.log('video on');
                         }
                     );
-                }
+                },
             });
         }
     }
 
     endMeeting() {
+
         return this.conferenceService.endMeeting(this.meetingCode);
 
     }

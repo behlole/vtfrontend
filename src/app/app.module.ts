@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -29,6 +29,8 @@ import {TeachersModule} from './modules/teachers/teachers.module';
 import { StudentCoursesComponent } from './modules/student-courses/student-courses.component';
 import {StudentCoursesModule} from './modules/student-courses/student-courses.module';
 import {MeetingModule} from './modules/meeting/meeting.module';
+import {NgxSpinner} from 'ngx-spinner/lib/ngx-spinner.enum';
+import {NgxSpinnerModule} from 'ngx-spinner';
 const appRoutes: Routes = [
     {
         path: 'login',
@@ -38,11 +40,7 @@ const appRoutes: Routes = [
         path: 'register',
         redirectTo: 'auth/register'
     },
-    {
-        path:'',
-        component:SampleComponent,
-        canActivate:[AuthGuard]
-    },
+
     {
         path:'dashboard',
         canActivate:[AuthGuard],
@@ -54,6 +52,11 @@ const appRoutes: Routes = [
 
 
         ]
+    },
+    {
+        path:'',
+        redirectTo:'dashboard',
+        pathMatch:'full',
     },
     {
       path:'student-dashboard',
@@ -117,9 +120,11 @@ const appRoutes: Routes = [
         CourseModule,
         TeachersModule,
         StudentCoursesModule,
-        MeetingModule
+        MeetingModule,
+        NgxSpinnerModule,
 
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers:[
         AuthGuard
     ],

@@ -5,6 +5,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { SampleComponent } from './sample.component';
+import {
+    MatButtonModule,
+    MatFormFieldModule, MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule, MatSortModule, MatTableModule, MatToolbarModule
+} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CourseModule} from '../../modules/course/course.module';
+import {MeetingModule} from '../../modules/meeting/meeting.module';
 
 const routes = [
     {
@@ -17,12 +28,25 @@ const routes = [
     declarations: [
         SampleComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(routes),
 
         TranslateModule,
 
-        FuseSharedModule
+        FuseSharedModule,
+        MatIconModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatTableModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatToolbarModule,
+        MatGridListModule,
+        MatSortModule,
+        CourseModule,
+        MeetingModule,
     ],
     exports     : [
         SampleComponent

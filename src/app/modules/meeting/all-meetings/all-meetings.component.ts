@@ -8,6 +8,8 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AddCourseComponent} from '../../course/add-course/add-course.component';
 import {EnrolledStudentsComponent} from '../../course/enrolled-students/enrolled-students.component';
 import {MeetingService} from '../services/meeting.service';
+import {NgxSpinner} from 'ngx-spinner/lib/ngx-spinner.enum';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-all-meetings',
@@ -29,12 +31,16 @@ export class AllMeetingsComponent implements OnInit {
         private toaster: ToastrService,
         private meetingService: MeetingService,
         private dialog: MatDialog,
+        private spinner:NgxSpinnerService
     ) {
     }
 
     ngOnInit() {
+
+        this.spinner.show();
         this.dataSource = new MatTableDataSource();
         this.getMeetings();
+        this.spinner.hide();
     }
 
     getMeetings() {
@@ -74,5 +80,9 @@ export class AllMeetingsComponent implements OnInit {
             this.toaster.success('Course has been deleted successfully');
             this.getMeetings();
         });
+    }
+
+    move(id) {
+        console.log(id)
     }
 }

@@ -36,7 +36,7 @@ const routes = [
     },
 ];
 @NgModule({
-  declarations: [StudentComponent,AddstudentComponent, EnrollStudentComponent],
+    declarations: [StudentComponent, AddstudentComponent, EnrollStudentComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -58,15 +58,18 @@ const routes = [
         MatToolbarModule
 
     ],
-    providers:[
-        AuthGuard,StudentServiceService,
+    providers: [
+        AuthGuard, StudentServiceService,
         {
-            provide:HTTP_INTERCEPTORS,
-            useClass:TokenInterceptorService,
-            multi:true,
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true,
         }
     ],
-    entryComponents:[
+    exports: [
+        AddstudentComponent
+    ],
+    entryComponents: [
         AddstudentComponent,
         EnrollStudentComponent
     ]

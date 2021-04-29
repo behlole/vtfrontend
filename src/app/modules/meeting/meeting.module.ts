@@ -39,14 +39,17 @@ const routes = [
         MatGridListModule,
         MatSortModule,
     ],
-    providers:[
+    providers: [
         AuthGuard,
         {
-            provide:HTTP_INTERCEPTORS,
-            useClass:TokenInterceptorService,
-            multi:true,
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true,
         }
     ],
+    exports: [
+        AllMeetingsComponent
+    ]
 })
 export class MeetingModule {
 }

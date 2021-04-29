@@ -1,10 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {StudentServiceService} from '../services/student-service.service';
 import moment from 'moment';
-import {StudentComponent} from '../student.component';
 
 @Component({
     selector: 'app-addstudent',

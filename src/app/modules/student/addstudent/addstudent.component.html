@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <span>{{studentService.addStudentForm.controls['id'].value?"Update Student":"New Employee"}}}</span>
+    <span>{{studentService.addStudentForm.controls['id'].value?"Update Student":"New Student"}}</span>
 </mat-toolbar>
 <form (submit)="addStudent()" [formGroup]="studentService.addStudentForm" class="normal-form">
     <button mat-icon-button (click)="close()">

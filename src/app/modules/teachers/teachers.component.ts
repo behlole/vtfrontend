@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {TeacherService} from './services/teacher.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-teachers',
@@ -24,7 +25,8 @@ export class TeachersComponent implements OnInit {
     constructor(
         private teacherService: TeacherService,
         private dialog: MatDialog,
-        private toaster:ToastrService
+        private toaster:ToastrService,
+        private spinner:NgxSpinnerService
     ) {
     }
 
@@ -32,9 +34,10 @@ export class TeachersComponent implements OnInit {
 
 
     ngOnInit(): void {
-
+        this.spinner.show();
         this.dataSource = new MatTableDataSource(); // create new object
         this.getTeachers();
+        this.spinner.hide();
 
 
     }

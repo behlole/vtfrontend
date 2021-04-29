@@ -8,6 +8,14 @@ export const navigation: FuseNavigation[] = [
         type     : 'group',
         children : [
             {
+                id: 'Dashboard',
+                title: 'Dashboard',
+                translate: 'Dashboard',
+                type: 'item',
+                icon: 'home',
+                url: 'dashboard',
+            },
+            {
                 id: 'All Students',
                 title: 'Students',
                 translate: 'NAV.STUDENTS.TITLE',
