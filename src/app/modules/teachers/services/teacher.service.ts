@@ -10,6 +10,6 @@ export class TeacherService {
   constructor(private http:HttpClient) { }
 
     getAllTeachers() {
-        return this.http.get(environment.url+'students/teachers');
+        return this.http.get(environment.url+'student/teachers/');
     }
 }

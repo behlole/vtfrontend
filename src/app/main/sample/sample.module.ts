@@ -16,6 +16,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CourseModule} from '../../modules/course/course.module';
 import {MeetingModule} from '../../modules/meeting/meeting.module';
+import {TeachersModule} from '../../modules/teachers/teachers.module';
+import {StudentCoursesModule} from '../../modules/student-courses/student-courses.module';
 
 const routes = [
     {
@@ -47,6 +49,8 @@ const routes = [
         MatSortModule,
         CourseModule,
         MeetingModule,
+        TeachersModule,
+        StudentCoursesModule,
     ],
     exports     : [
         SampleComponent

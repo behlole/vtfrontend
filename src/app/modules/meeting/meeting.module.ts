@@ -13,6 +13,8 @@ import {
     MatTableModule, MatToolbarModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
+import { MeetingDetailComponent } from './meeting-detail/meeting-detail.component';
+import {StudentModule} from '../student/student.module';
 
 const routes = [
     {
@@ -20,10 +22,15 @@ const routes = [
         canActivate: [AuthGuard],
         component: AllMeetingsComponent
     },
+    {
+        path:'dashboard/meeting-detail',
+        canActivate: [AuthGuard],
+        component: MeetingDetailComponent
+    }
 ];
 
 @NgModule({
-    declarations: [AllMeetingsComponent],
+    declarations: [AllMeetingsComponent, MeetingDetailComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -38,6 +45,7 @@ const routes = [
         MatToolbarModule,
         MatGridListModule,
         MatSortModule,
+        StudentModule,
     ],
     providers: [
         AuthGuard,

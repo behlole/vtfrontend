@@ -3,13 +3,11 @@ import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {ToastrService} from 'ngx-toastr';
-import {CourseServiceService} from '../../course/services/course-service.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AddCourseComponent} from '../../course/add-course/add-course.component';
-import {EnrolledStudentsComponent} from '../../course/enrolled-students/enrolled-students.component';
 import {MeetingService} from '../services/meeting.service';
-import {NgxSpinner} from 'ngx-spinner/lib/ngx-spinner.enum';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-all-meetings',
@@ -31,7 +29,8 @@ export class AllMeetingsComponent implements OnInit {
         private toaster: ToastrService,
         private meetingService: MeetingService,
         private dialog: MatDialog,
-        private spinner:NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private router: Router
     ) {
     }
 
@@ -82,7 +81,9 @@ export class AllMeetingsComponent implements OnInit {
         });
     }
 
-    move(id) {
-        console.log(id)
+
+    move(code) {
+        this.router.navigate(['/dashboard/meeting-detail'], {queryParams: {meeting_code: code}});
+
     }
 }

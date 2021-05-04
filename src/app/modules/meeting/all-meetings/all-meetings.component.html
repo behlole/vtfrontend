@@ -23,11 +23,11 @@
             </ng-container>
             <ng-container matColumnDef="start_time">
                 <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Start Time</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.start_time.substr(0,8)}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.start_time.substr(10,9)}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="end_time">
                 <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>End Time</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.end_time?.substr(0,8) }}</mat-cell>
+                <mat-cell *matCellDef="let element">{{element.end_time?.substr(10,9) }}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="duration">
                 <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Duration</mat-header-cell>
@@ -54,7 +54,7 @@
             <!--                </mat-cell>-->
             <!--            </ng-container>-->
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns:displayedColumns" (click)="move(row.id)"></mat-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns" (click)="move(row.meeting_code)" style="cursor: pointer"></mat-row>
             <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
             </tr>

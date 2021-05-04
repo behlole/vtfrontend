@@ -21,6 +21,9 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [StudentCoursesComponent],
+    exports: [
+        StudentCoursesComponent
+    ],
     imports: [
         CommonModule,
         RouterModule.forChild(appRoutes),

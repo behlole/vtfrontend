@@ -14,7 +14,7 @@ const routes=[
     }
 ]
 @NgModule({
-  declarations: [TeachersComponent],
+    declarations: [TeachersComponent],
     imports: [
         CommonModule,
         MatIconModule,
@@ -23,13 +23,16 @@ const routes=[
         MatTableModule,
         RouterModule.forChild(routes)
     ],
-    providers:[
-        AuthGuard,StudentServiceService,
+    providers: [
+        AuthGuard, StudentServiceService,
         {
-            provide:HTTP_INTERCEPTORS,
-            useClass:TokenInterceptorService,
-            multi:true,
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true,
         },
     ],
+    exports: [
+        TeachersComponent
+    ]
 })
 export class TeachersModule { }

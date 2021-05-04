@@ -67,7 +67,8 @@ const routes = [
         }
     ],
     exports: [
-        AddstudentComponent
+        AddstudentComponent,
+        StudentComponent
     ],
     entryComponents: [
         AddstudentComponent,
