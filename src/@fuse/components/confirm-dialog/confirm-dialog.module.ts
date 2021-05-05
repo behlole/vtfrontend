@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import {NgModule} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
-import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import {FuseConfirmDialogComponent} from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +16,5 @@ import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/conf
         FuseConfirmDialogComponent
     ],
 })
-export class FuseConfirmDialogModule
-{
+export class FuseConfirmDialogModule {
 }

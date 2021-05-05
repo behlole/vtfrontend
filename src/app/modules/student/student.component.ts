@@ -1,14 +1,12 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {StudentServiceService} from './services/student-service.service';
-import {MatFormField, MatInput, MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AddstudentComponent} from './addstudent/addstudent.component';
-import {error} from 'util';
 import {ToastrService} from 'ngx-toastr';
 import {EnrollStudentComponent} from './enroll-student/enroll-student.component';
-import {NgxSpinner} from 'ngx-spinner/lib/ngx-spinner.enum';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
@@ -29,8 +27,8 @@ export class StudentComponent implements OnInit {
     constructor(
         private studentService: StudentServiceService,
         private dialog: MatDialog,
-        private toaster:ToastrService,
-        private spinner:NgxSpinnerService
+        private toaster: ToastrService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -91,21 +89,21 @@ export class StudentComponent implements OnInit {
             }
         });
     }
-    onDelete(row)
-    {
-        this.studentService.deleteStudent(row.id).subscribe((data)=>{
-            this.toaster.success("Student deleted successfully");
+
+    onDelete(row) {
+        this.studentService.deleteStudent(row.id).subscribe((data) => {
+            this.toaster.success('Student deleted successfully');
             this.getStudents();
-        },(error)=>{
+        }, (error) => {
             console.log(error.message);
-            this.toaster.error("Something bad happened");
+            this.toaster.error('Something bad happened');
         });
     }
 
     openEnrolDialog(row) {
         var studentService = this.studentService.courseForm.patchValue({
-            student_id:row.id,
-        })
+            student_id: row.id,
+        });
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;

@@ -17,12 +17,12 @@ import {FuseSidebarService} from '@fuse/components/sidebar/sidebar.service';
 export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
     fuseConfig: any;
     navigation: any;
-    first_name:string;
-    last_name:string;
-    role_type:string;
+    first_name: string;
+    last_name: string;
+    role_type: string;
 
     //userData
-    user:any;
+    user: any;
 
     // Private
     private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
@@ -121,9 +121,9 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy {
             });
 
         //assigning dynamic user data
-        if(localStorage.getItem('user')) {
-            let data = JSON.parse(localStorage.getItem('user'))
-            this.first_name = data.user.first_name
+        if (localStorage.getItem('user')) {
+            let data = JSON.parse(localStorage.getItem('user'));
+            this.first_name = data.user.first_name;
             this.last_name = data.user.last_name;
             this.role_type = data.user.role_type;
         }

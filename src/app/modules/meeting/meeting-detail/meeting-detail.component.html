@@ -1,0 +1,110 @@
+<div class="page-layout simple fullwidth docs" style="padding: 10px">
+
+    <mat-grid-list cols="12">
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-grid-tile-header style="height: 100px;
+    border-radius: 20px;
+    background-color: #1A9BE5;
+    font-weight: bold;">
+                Meeting Code: <br> {{data?.meeting?.meeting_code}}
+                <mat-icon style="font-size: 7rem;
+             margin: 8rem;height: 40px;">offline_share
+                </mat-icon>
+            </mat-grid-tile-header>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-grid-tile-header style="height: 100px;
+    border-radius: 20px;
+    background-color: #EC5A31;
+    font-weight: bold;">
+                Start Time - End Time <br> {{data?.meeting?.start_time?.substr(10, 9)}}
+                - {{data?.meeting?.end_time?.substr(10, 9)}}
+                <mat-icon style="font-size: 7rem;
+             margin: 8rem;height: 40px;">lock_clock
+                </mat-icon>
+            </mat-grid-tile-header>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-grid-tile-header style="height: 100px;
+    border-radius: 20px;
+    background-color: #265C7E;
+    font-weight: bold;">
+                Duration: <br> {{data?.meeting?.duration}}
+                <mat-icon style="font-size: 7rem;
+             margin: 8rem;height: 40px;">alarm
+                </mat-icon>
+            </mat-grid-tile-header>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-grid-tile-header style="height: 100px;
+    border-radius: 20px;
+    background-color: #2D323E;
+    font-weight: bold;">
+                Date: <br> {{data?.meeting?.created_at | date}}
+                <mat-icon style="font-size: 7rem;
+             margin: 8rem;height: 40px;">date_range
+                </mat-icon>
+            </mat-grid-tile-header>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <div class="page-layout simple fullwidth docs" style="padding: 10px">
+        <mat-form-field class="search-form-field">
+            <mat-label>Filter</mat-label>
+            <input #input (keyup)="applyFilter($event)" matInput placeholder="Search a keyword of any student">
+
+        </mat-form-field>
+        <div *ngIf="dataSource" class="mat-elevation-z8" matSort>
+
+
+            <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
+
+            <mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID #</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element?.id}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="first_name">
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>First Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element?.first_name}}</mat-cell>
+
+                </ng-container>
+                <ng-container matColumnDef="last_name">
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Last Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element?.last_name}}</mat-cell>
+
+                </ng-container>
+                <ng-container matColumnDef="gender">
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Gender</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element?.gender}}</mat-cell>
+
+                </ng-container>
+                <ng-container matColumnDef="phone_number">
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Phone Number</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element?.phone_number}}</mat-cell>
+
+                </ng-container>
+                <ng-container matColumnDef="department">
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Department</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element?.department}}</mat-cell>
+
+                </ng-container>
+                <ng-container matColumnDef="city">
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>City</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{element?.city}}</mat-cell>
+
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row (click)="openStudentActivityDetail(row.id)" *matRowDef="let row; columns:displayedColumns"
+                         style="cursor: pointer"></mat-row>
+                <tr *matNoDataRow class="mat-row">
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </mat-table>
+
+        </div>
+    </div>
+
+</div>

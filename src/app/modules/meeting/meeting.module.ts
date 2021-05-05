@@ -7,12 +7,19 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptorService} from '../authentication/services/token-interceptor.service';
 import {
     MatButtonModule,
-    MatFormFieldModule, MatGridListModule,
-    MatIconModule, MatInputModule,
-    MatPaginatorModule, MatSortModule,
-    MatTableModule, MatToolbarModule
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MeetingDetailComponent} from './meeting-detail/meeting-detail.component';
+import {StudentModule} from '../student/student.module';
+import {StudentActivityComponent} from './student-activity/student-activity.component';
 
 const routes = [
     {
@@ -20,10 +27,20 @@ const routes = [
         canActivate: [AuthGuard],
         component: AllMeetingsComponent
     },
+    {
+        path: 'dashboard/meeting-detail',
+        canActivate: [AuthGuard],
+        component: MeetingDetailComponent
+    },
+    {
+        path: 'dashboard/meetings/student-activity',
+        canActivate: [AuthGuard],
+        component: StudentActivityComponent
+    }
 ];
 
 @NgModule({
-    declarations: [AllMeetingsComponent],
+    declarations: [AllMeetingsComponent, MeetingDetailComponent, StudentActivityComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -38,6 +55,7 @@ const routes = [
         MatToolbarModule,
         MatGridListModule,
         MatSortModule,
+        StudentModule,
     ],
     providers: [
         AuthGuard,

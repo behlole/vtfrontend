@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -20,10 +20,11 @@ export class StudentServiceService {
         date_of_birth: new FormControl(''),
     });
     courseForm: FormGroup = new FormGroup({
-        id:new FormControl(''),
+        id: new FormControl(''),
         course_id: new FormControl('', Validators.required),
-        student_id:new FormControl('')
+        student_id: new FormControl('')
     });
+
     constructor(
         private http: HttpClient,
     ) {
@@ -77,6 +78,6 @@ export class StudentServiceService {
     }
 
     enrolStudent(value: any) {
-        return this.http.post(environment.url+'teacher/courses/enrol',value);
+        return this.http.post(environment.url + 'teacher/courses/enrol', value);
     }
 }

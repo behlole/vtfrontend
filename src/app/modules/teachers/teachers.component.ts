@@ -2,15 +2,15 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {TeacherService} from './services/teacher.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
-  selector: 'app-teachers',
-  templateUrl: './teachers.component.html',
-  styleUrls: ['./teachers.component.scss']
+    selector: 'app-teachers',
+    templateUrl: './teachers.component.html',
+    styleUrls: ['./teachers.component.scss']
 })
 export class TeachersComponent implements OnInit {
 
@@ -25,8 +25,8 @@ export class TeachersComponent implements OnInit {
     constructor(
         private teacherService: TeacherService,
         private dialog: MatDialog,
-        private toaster:ToastrService,
-        private spinner:NgxSpinnerService
+        private toaster: ToastrService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -59,9 +59,6 @@ export class TeachersComponent implements OnInit {
             this.dataSource.paginator.firstPage();
         }
     }
-
-
-
 
 
 }

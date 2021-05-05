@@ -22,13 +22,14 @@ export class CourseComponent implements OnInit {
     dataSource: MatTableDataSource<any>;
 
     displayedColumns: string[] = ['id', 'name', 'students', 'actions'];
-    roleType:String
-    data:any;
+    roleType: String;
+    data: any;
+
     constructor(
         private toaster: ToastrService,
         private courseService: CourseServiceService,
         private dialog: MatDialog,
-        private spinner:NgxSpinnerService
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -36,14 +37,11 @@ export class CourseComponent implements OnInit {
         this.spinner.show();
         this.dataSource = new MatTableDataSource();
         this.getCourses();
-        this.data=JSON.parse(localStorage.getItem('user'));
-        if(this.data.user.role_type==1)
-        {
-            this.roleType='teacher';
-        }
-        else
-        {
-            this.roleType='student';
+        this.data = JSON.parse(localStorage.getItem('user'));
+        if (this.data.user.role_type == 1) {
+            this.roleType = 'teacher';
+        } else {
+            this.roleType = 'student';
         }
         this.spinner.hide();
     }
@@ -112,6 +110,6 @@ export class CourseComponent implements OnInit {
     }
 
     joinMeeting(row) {
-        
+
     }
 }

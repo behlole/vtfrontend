@@ -1,19 +1,18 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 
-import { fuseAnimations } from '@fuse/animations';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import {fuseAnimations} from '@fuse/animations';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 import {ProfileService} from '../../../profile.service';
 
 @Component({
-    selector     : 'profile-photos-videos',
-    templateUrl  : './photos-videos.component.html',
-    styleUrls    : ['./photos-videos.component.scss'],
+    selector: 'profile-photos-videos',
+    templateUrl: './photos-videos.component.html',
+    styleUrls: ['./photos-videos.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class ProfilePhotosVideosComponent implements OnInit, OnDestroy
-{
+export class ProfilePhotosVideosComponent implements OnInit, OnDestroy {
     photosVideos: any;
 
     // Private
@@ -26,8 +25,7 @@ export class ProfilePhotosVideosComponent implements OnInit, OnDestroy
      */
     constructor(
         private _profileService: ProfileService
-    )
-    {
+    ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -39,8 +37,7 @@ export class ProfilePhotosVideosComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this._profileService.photosVideosOnChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(photosVideos => {
@@ -51,8 +48,7 @@ export class ProfilePhotosVideosComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

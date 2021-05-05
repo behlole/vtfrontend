@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -72,7 +72,7 @@ export class ProfileService {
      */
     getAbout() {
 
-        return this._httpClient.get(environment.url+'teacher/profile');
+        return this._httpClient.get(environment.url + 'teacher/profile');
     }
 
     /**

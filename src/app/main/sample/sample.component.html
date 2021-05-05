@@ -1,14 +1,27 @@
 <div class="page-layout blank p-24" fusePerfectScrollbar>
-    <mat-grid-list cols="12" >
+    <mat-grid-list *ngIf="roleType=='teacher'" cols="12">
         <mat-grid-tile [colspan]="6" [rowspan]="6">
             <mat-grid-tile-header>All Meetings</mat-grid-tile-header>
-<!--            <app-all-meetings></app-all-meetings>-->
+            <app-all-meetings></app-all-meetings>
 
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="6" [rowspan]="6">
             <mat-grid-tile-header>All Courses</mat-grid-tile-header>
-<!--            <app-course></app-course>-->
+            <app-course></app-course>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list *ngIf="roleType=='student'" cols="12">
+        <mat-grid-tile [colspan]="6" [rowspan]="6">
+            <mat-grid-tile-header>All Teachers</mat-grid-tile-header>
+            <app-teachers></app-teachers>
+
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="6" [rowspan]="6">
+            <mat-grid-tile-header>All Courses</mat-grid-tile-header>
+            <app-student-courses></app-student-courses>
         </mat-grid-tile>
     </mat-grid-list>
 

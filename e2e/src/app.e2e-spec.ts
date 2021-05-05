@@ -1,4 +1,4 @@
-import { FusePage } from './app.po';
+import {FusePage} from './app.po';
 
 describe('Fuse App', () => {
     let page: FusePage;

@@ -1,22 +1,22 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { FuseConfigService } from '@fuse/services/config.service';
-import { fuseAnimations } from '@fuse/animations';
+import {FuseConfigService} from '@fuse/services/config.service';
+import {fuseAnimations} from '@fuse/animations';
 import {AuthenticationService} from '../services/authentication.service';
-import { Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
-    selector     : 'login',
-    templateUrl  : './login.component.html',
-    styleUrls    : ['./login.component.scss'],
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class LoginComponent implements OnInit
-{
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+
     /**
      * Constructor
      *
@@ -26,21 +26,20 @@ export class LoginComponent implements OnInit
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
-        private authenticationService:AuthenticationService,
-        private router:Router,
-        private toaster:ToastrService
-    )
-    {
+        private authenticationService: AuthenticationService,
+        private router: Router,
+        private toaster: ToastrService
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
-                navbar   : {
+                navbar: {
                     hidden: true
                 },
-                toolbar  : {
+                toolbar: {
                     hidden: true
                 },
-                footer   : {
+                footer: {
                     hidden: true
                 },
                 sidepanel: {
@@ -57,32 +56,31 @@ export class LoginComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
-            email   : ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
     }
-    login(){
-        var route=this.router;
-        var toaster=this.toaster;
-        let data={
-            'email':this.loginForm.getRawValue().email,
-            'password':this.loginForm.getRawValue().password
-        }
+
+    login() {
+        var route = this.router;
+        var toaster = this.toaster;
+        let data = {
+            'email': this.loginForm.getRawValue().email,
+            'password': this.loginForm.getRawValue().password
+        };
         this.authenticationService.login(data).subscribe({
-            next(data){
-                localStorage.setItem('user',JSON.stringify(data));
-                route.navigate(['dashboard'])
-                toaster.success("Success","Logged in Successfully!")
+            next(data) {
+                localStorage.setItem('user', JSON.stringify(data));
+                route.navigate(['dashboard']);
+                toaster.success('Success', 'Logged in Successfully!');
 
             },
-            error(message){
-                toaster.error("Error",message.message);
+            error(message) {
+                toaster.error('Error', message.message);
             }
         });
-
 
 
     }

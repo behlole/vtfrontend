@@ -1,29 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CourseComponent } from './course.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {CourseComponent} from './course.component';
 import {AuthGuard} from '../authentication/guards/auth-guard.guard';
 import {RouterModule} from '@angular/router';
-import {StudentServiceService} from '../student/services/student-service.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptorService} from '../authentication/services/token-interceptor.service';
-import { AddCourseComponent } from './add-course/add-course.component';
+import {AddCourseComponent} from './add-course/add-course.component';
 import {CourseServiceService} from './services/course-service.service';
 import {
     MatButtonModule,
-    MatFormFieldModule, MatGridListModule,
+    MatFormFieldModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
-    MatPaginatorModule, MatSortModule, MatTableModule, MatToolbarModule
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
-import { EnrolledStudentsComponent } from './enrolled-students/enrolled-students.component';
-const routes=[
+import {EnrolledStudentsComponent} from './enrolled-students/enrolled-students.component';
+
+const routes = [
     {
-        path:'dashboard/courses',
-        canActivate:[AuthGuard],
-        component:CourseComponent
+        path: 'dashboard/courses',
+        canActivate: [AuthGuard],
+        component: CourseComponent
     },
-]
+];
+
 @NgModule({
     declarations: [CourseComponent, AddCourseComponent, EnrolledStudentsComponent],
     imports: [
@@ -58,4 +63,5 @@ const routes=[
     ]
 
 })
-export class CourseModule { }
+export class CourseModule {
+}

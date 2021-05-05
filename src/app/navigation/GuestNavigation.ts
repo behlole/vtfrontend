@@ -1,18 +1,18 @@
-import { FuseNavigation } from '@fuse/types';
+import {FuseNavigation} from '@fuse/types';
 
 export const GuestNavigation: FuseNavigation[] = [
     {
-        id       : 'applications',
-        title    : 'Applications',
+        id: 'applications',
+        title: 'Applications',
         translate: 'NAV.APPLICATIONS',
-        type     : 'group',
-        children : [
+        type: 'group',
+        children: [
             {
-                id       : 'Guest',
-                title    : 'Guest',
+                id: 'Guest',
+                title: 'Guest',
                 translate: 'NAV.GUEST.TITLE',
-                type     : 'item',
-                icon     : 'book',
+                type: 'item',
+                icon: 'book',
                 // url      : '/student-dashboard/teachers',
 
             },
