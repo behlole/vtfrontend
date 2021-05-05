@@ -1,16 +1,20 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { FuseSharedModule } from '@fuse/shared.module';
+import {FuseSharedModule} from '@fuse/shared.module';
 
-import { SampleComponent } from './sample.component';
+import {SampleComponent} from './sample.component';
 import {
     MatButtonModule,
-    MatFormFieldModule, MatGridListModule,
+    MatFormFieldModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
-    MatPaginatorModule, MatSortModule, MatTableModule, MatToolbarModule
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -21,7 +25,7 @@ import {StudentCoursesModule} from '../../modules/student-courses/student-course
 
 const routes = [
     {
-        path     : 'sample',
+        path: 'sample',
         component: SampleComponent
     }
 ];
@@ -52,11 +56,10 @@ const routes = [
         TeachersModule,
         StudentCoursesModule,
     ],
-    exports     : [
+    exports: [
         SampleComponent
     ]
 })
 
-export class SampleModule
-{
+export class SampleModule {
 }

@@ -31,8 +31,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
         private authService: AuthenticationService,
-        private router:Router,
-        private toaster:ToastrService
+        private router: Router,
+        private toaster: ToastrService
     ) {
         // Configure the layout
         this._fuseConfigService.config = {
@@ -63,8 +63,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.registerForm = this._formBuilder.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -97,17 +96,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
 
     register() {
-        var route=this.router;
-        var toaster=this.toaster;
+        var route = this.router;
+        var toaster = this.toaster;
         this.authService.register(this.registerForm.value).subscribe((data) => {
-                localStorage.setItem('user',JSON.stringify(data));
+                localStorage.setItem('user', JSON.stringify(data));
                 console.log(data);
                 // route.navigate(['dashboard'])
                 route.navigateByUrl('/dashboard');
-                toaster.success("Success","Logged in Successfully!")
+                toaster.success('Success', 'Logged in Successfully!');
             },
             (error) => {
-                toaster.error("Error",error.message);
+                toaster.error('Error', error.message);
             });
 
 
@@ -122,26 +121,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
  */
 export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
 
-    if ( !control.parent || !control )
-    {
+    if (!control.parent || !control) {
         return null;
     }
 
     const password = control.parent.get('password');
     const passwordConfirm = control.parent.get('passwordConfirm');
 
-    if ( !password || !passwordConfirm )
-    {
+    if (!password || !passwordConfirm) {
         return null;
     }
 
-    if ( passwordConfirm.value === '' )
-    {
+    if (passwordConfirm.value === '') {
         return null;
     }
 
-    if ( password.value === passwordConfirm.value )
-    {
+    if (password.value === passwordConfirm.value) {
         return null;
     }
 

@@ -4,9 +4,9 @@
 
 export const environment = {
     production: false,
-    hmr       : false,
-    url:'http://localhost:8000/',
-    videoServer:'meet.jit.si'
+    hmr: false,
+    url: 'http://localhost:8000/',
+    videoServer: 'meet.jit.si'
 };
 
 /*

@@ -1,23 +1,22 @@
 import {
-    HttpInterceptor,
-    HttpHandler,
-    HttpRequest,
+    HttpClient,
+    HttpErrorResponse,
     HttpEvent,
-    HttpResponse,
-    HttpErrorResponse, HttpClient
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {tap, catchError} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {environment} from '../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
-    constructor(private router: Router, private toasterService: ToastrService,private http:HttpClient) {
+    constructor(private router: Router, private toasterService: ToastrService, private http: HttpClient) {
     }
 
     intercept(
@@ -26,17 +25,15 @@ export class TokenInterceptorService implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         let tokenizeReq;
 
-        if(localStorage.getItem('user')) {
-            let token=JSON.parse(localStorage.getItem('user'));
-             tokenizeReq = req.clone({
+        if (localStorage.getItem('user')) {
+            let token = JSON.parse(localStorage.getItem('user'));
+            tokenizeReq = req.clone({
                 setHeaders: {
                     Authorization: 'Bearer ' + token.token
                 }
             });
-        }
-        else
-        {
-             tokenizeReq = req.clone({
+        } else {
+            tokenizeReq = req.clone({
                 setHeaders: {
                     Authorization: ''
                 }
@@ -49,10 +46,9 @@ export class TokenInterceptorService implements HttpInterceptor {
             }),
             catchError((err: any) => {
                 if (err instanceof HttpErrorResponse) {
-                    if(err.status==401)
-                    {
+                    if (err.status == 401) {
                         localStorage.removeItem('token');
-                        this.toasterService.error("Please log in again !","Session Expired");
+                        this.toasterService.error('Please log in again !', 'Session Expired');
                         this.router.navigate(['/login']);
                     }
                     //log error

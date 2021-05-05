@@ -31,7 +31,7 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
         private router: Router,
         private conferenceService: ConferenceService,
         private toaster: ToastrService,
-        private spinner:NgxSpinnerService) {
+        private spinner: NgxSpinnerService) {
         this._fuseConfigService.config = {
             layout: {
                 navbar: {
@@ -66,12 +66,9 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
         this.spinner.show();
         this.startMeeting();
         this.spinner.hide();
-        if(this.roleType==1)
-        {
+        if (this.roleType == 1) {
             this.api = new JitsiMeetExternalAPI(this.domain, this.teacherOptions);
-        }
-        else if(this.roleType==2)
-        {
+        } else if (this.roleType == 2) {
             this.api = new JitsiMeetExternalAPI(this.domain, this.studentOptions);
         }
 
@@ -80,7 +77,7 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                 participantJoined: function(result) {
                 },
                 videoConferenceLeft: () => this.endMeeting().subscribe(data => {
-                    this.toaster.success("Meeting ended successfully");
+                    this.toaster.success('Meeting ended successfully');
                     this.api.executeCommand('hangup');
                     this.router.navigate(['dashboard']);
                 }),
@@ -170,7 +167,7 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_WATERMARK_FOR_GUESTS: false,
-                TOOLBAR_BUTTONS: ['microphone', 'camera', 'tileview','hangup','chat','profile','help'],
+                TOOLBAR_BUTTONS: ['microphone', 'camera', 'tileview', 'hangup', 'chat', 'profile', 'help'],
             },
 
             parentNode: document.querySelector('#meet')

@@ -5,7 +5,7 @@
         "types": [
             "node"
         ],
-      "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "src/**/*.ts"

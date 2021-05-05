@@ -22,47 +22,40 @@ export class AddCourseComponent implements OnInit {
 
     addCourse() {
 
-                if (this.courseService.addCourseForm.invalid) {
-                    this.toaster.error('', 'Please fill required details');
-                } else {
-                    if (this.courseService.addCourseForm.controls['id'].value) {
-                        this.courseService.updateCourse(this.courseService.addCourseForm.value).subscribe(
-                            (data:any) => {
-                                if(data.error)
-                                {
-                                    this.toaster.error(data['message']);
-                                }
-                                else
-                                {
-                                    this.toaster.success('', data['message']);
-                                    this.dialogRef.close(true);
-                                }
+        if (this.courseService.addCourseForm.invalid) {
+            this.toaster.error('', 'Please fill required details');
+        } else {
+            if (this.courseService.addCourseForm.controls['id'].value) {
+                this.courseService.updateCourse(this.courseService.addCourseForm.value).subscribe(
+                    (data: any) => {
+                        if (data.error) {
+                            this.toaster.error(data['message']);
+                        } else {
+                            this.toaster.success('', data['message']);
+                            this.dialogRef.close(true);
+                        }
 
 
+                    }, (error) => {
+                        this.toaster.error('', error['message']);
+                    });
+            } else {
 
-                            }, (error) => {
-                                this.toaster.error('', error['message']);
-                            });
-                    } else {
-
-                        this.courseService.addCourse(this.courseService.addCourseForm.value).subscribe(
-                            (data:any) => {
-                                if(data.error)
-                                {
-                                    this.toaster.error(data['message']);
-                                }
-                                else {
-                                    this.toaster.success('', data['message']);
-                                    this.dialogRef.close(true);
-                                }
+                this.courseService.addCourse(this.courseService.addCourseForm.value).subscribe(
+                    (data: any) => {
+                        if (data.error) {
+                            this.toaster.error(data['message']);
+                        } else {
+                            this.toaster.success('', data['message']);
+                            this.dialogRef.close(true);
+                        }
 
 
-
-                            }, (error) => {
-                                this.toaster.error('', error['message']);
-                            });
-                    }
-                }
+                    }, (error) => {
+                        this.toaster.error('', error['message']);
+                    });
+            }
+        }
     }
 
     close() {

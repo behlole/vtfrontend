@@ -52,10 +52,10 @@
     <div class="page-layout simple fullwidth docs" style="padding: 10px">
         <mat-form-field class="search-form-field">
             <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Search a keyword of any student" #input>
+            <input #input (keyup)="applyFilter($event)" matInput placeholder="Search a keyword of any student">
 
         </mat-form-field>
-        <div class="mat-elevation-z8" *ngIf="dataSource">
+        <div *ngIf="dataSource" class="mat-elevation-z8" matSort>
 
 
             <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
@@ -97,8 +97,9 @@
 
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
-                <tr class="mat-row" *matNoDataRow>
+                <mat-row (click)="openStudentActivityDetail(row.id)" *matRowDef="let row; columns:displayedColumns"
+                         style="cursor: pointer"></mat-row>
+                <tr *matNoDataRow class="mat-row">
                     <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
                 </tr>
             </mat-table>

@@ -1,6 +1,6 @@
-<div id="timeline" class="p-24" fxLayout="row wrap">
+<div class="p-24" fxLayout="row wrap" id="timeline">
 
-    <div class="timeline-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="55" fxFlex.gt-md="65">
+    <div class="timeline-content" fxFlex="100" fxFlex.gt-md="65" fxFlex.gt-sm="55" fxLayout="column">
 
         <div class="profile-box add-post">
 
@@ -12,21 +12,21 @@
 
                     <div fxLayout="row" fxLayoutAlign="start center">
 
-                        <button mat-icon-button aria-label="Add photo" matTooltip="Add Photo">
+                        <button aria-label="Add photo" mat-icon-button matTooltip="Add Photo">
                             <mat-icon>photo</mat-icon>
                         </button>
 
-                        <button mat-icon-button aria-label="Mention somebody" matTooltip="Mention somebody">
+                        <button aria-label="Mention somebody" mat-icon-button matTooltip="Mention somebody">
                             <mat-icon>person</mat-icon>
                         </button>
 
-                        <button mat-icon-button aria-label="Add location" matTooltip="Add location">
+                        <button aria-label="Add location" mat-icon-button matTooltip="Add location">
                             <mat-icon>location_on</mat-icon>
                         </button>
 
                     </div>
 
-                    <button mat-raised-button color="accent" class="post-button" aria-label="POST">POST</button>
+                    <button aria-label="POST" class="post-button" color="accent" mat-raised-button>POST</button>
 
                 </footer>
 
@@ -36,11 +36,11 @@
 
         <mat-divider></mat-divider>
 
-        <div class="timeline-item" *ngFor="let post of timeline.posts">
+        <div *ngFor="let post of timeline.posts" class="timeline-item">
 
             <header fxLayout="row" fxLayoutAlign="space-between start">
                 <div class="user" fxLayout="row" fxLayoutAlign="start center">
-                    <img class="avatar" [src]="post.user.avatar">
+                    <img [src]="post.user.avatar" class="avatar">
 
                     <div fxLayout="column">
                         <div class="title">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <button mat-icon-button aria-label="More">
+                <button aria-label="More" mat-icon-button>
                     <mat-icon>more_vert</mat-icon>
                 </button>
             </header>
@@ -69,7 +69,7 @@
                     <div *ngIf="post.media.type === 'video'" [innerHtml]="post.media.embed"></div>
                 </div>
 
-                <div *ngIf="post.article" fxLayout="column" class="article">
+                <div *ngIf="post.article" class="article" fxLayout="column">
                     <div class="media">
                         <img [src]="post.article.media.preview">
                     </div>
@@ -79,13 +79,13 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center">
-                    <button mat-button class="like-button">
+                    <button class="like-button" mat-button>
                         <span fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="s-16">favorite</mat-icon>
                             <span>Like</span>&nbsp;<span>({{post.like}})</span>
                         </span>
                     </button>
-                    <button mat-button class="share-button">
+                    <button class="share-button" mat-button>
                         <span fxLayout="row" fxLayoutAlign="start center">
                             <mat-icon class="s-16">share</mat-icon>
                             <span>Share</span>&nbsp;<span>({{post.share}})</span>
@@ -100,10 +100,10 @@
                     <mat-icon class="s-16">keyboard_arrow_down</mat-icon>
                 </div>
 
-                <div class="comment" fxLayout="row" fxFlexFill *ngFor="let comment of post.comments">
+                <div *ngFor="let comment of post.comments" class="comment" fxFlexFill fxLayout="row">
                     <img [src]="comment.user.avatar" class="avatar"/>
 
-                    <div fxLayout="column" fxFlex>
+                    <div fxFlex fxLayout="column">
                         <div fxLayout="row" fxLayoutAlign="start center">
                             <span class="username">{{comment.user.name}}</span>
                             <span class="time">{{comment.time}}</span>
@@ -112,18 +112,18 @@
                             {{comment.message}}
                         </div>
                         <div class="actions" fxLayout="row" fxLayoutAlign="space-between center">
-                            <a href="#" class="reply-button">Reply</a>
-                            <mat-icon fxFlex class="report-button s-16">flag</mat-icon>
+                            <a class="reply-button" href="#">Reply</a>
+                            <mat-icon class="report-button s-16" fxFlex>flag</mat-icon>
                         </div>
                     </div>
                 </div>
 
-                <div class="reply" fxLayout="row" fxFlexFill>
-                    <img src="assets/images/avatars/profile.jpg" class="avatar"/>
+                <div class="reply" fxFlexFill fxLayout="row">
+                    <img class="avatar" src="assets/images/avatars/profile.jpg"/>
 
                     <form fxFlex>
                         <textarea placeholder="Add a comment..."></textarea>
-                        <button mat-raised-button color="accent" class="post-comment-button" aria-label="Post Comment">
+                        <button aria-label="Post Comment" class="post-comment-button" color="accent" mat-raised-button>
                             Post Comment
                         </button>
                     </form>
@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    <div class="timeline-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" fxFlex.gt-md="35">
+    <div class="timeline-sidebar" fxFlex="100" fxFlex.gt-md="35" fxFlex.gt-sm="45" fxLayout="column">
 
         <div class="profile-box latest-activity" fxLayout="column">
 
@@ -143,9 +143,9 @@
 
             <div class="content" fxLayout="row wrap">
                 <div class="activities">
-                    <div class="activity" fxLayout="row" fxLayoutAlign="start start"
-                         *ngFor="let activity of timeline.activities">
-                        <img [src]="activity.user.avatar" class="avatar" alt="{{activity.user.name}}"/>
+                    <div *ngFor="let activity of timeline.activities" class="activity" fxLayout="row"
+                         fxLayoutAlign="start start">
+                        <img [src]="activity.user.avatar" alt="{{activity.user.name}}" class="avatar"/>
 
                         <div fxLayout="column">
                             <div>

@@ -21,16 +21,16 @@ import {FormsModule} from '@angular/forms';
 import {SampleComponent} from './main/sample/sample.component';
 import {SampleModule} from './main/sample/sample.module';
 import {ToastrModule} from 'ngx-toastr';
-import { ConferenceComponent } from './modules/conference/conference.component';
+import {ConferenceComponent} from './modules/conference/conference.component';
 import {AuthGuard} from './modules/authentication/guards/auth-guard.guard';
 import {StudentModule} from './modules/student/student.module';
 import {CourseModule} from './modules/course/course.module';
 import {TeachersModule} from './modules/teachers/teachers.module';
-import { StudentCoursesComponent } from './modules/student-courses/student-courses.component';
+import {StudentCoursesComponent} from './modules/student-courses/student-courses.component';
 import {StudentCoursesModule} from './modules/student-courses/student-courses.module';
 import {MeetingModule} from './modules/meeting/meeting.module';
-import {NgxSpinner} from 'ngx-spinner/lib/ngx-spinner.enum';
 import {NgxSpinnerModule} from 'ngx-spinner';
+
 const appRoutes: Routes = [
     {
         path: 'login',
@@ -42,37 +42,38 @@ const appRoutes: Routes = [
     },
 
     {
-        path:'dashboard',
-        canActivate:[AuthGuard],
-        children:[
+        path: 'dashboard',
+        canActivate: [AuthGuard],
+        children: [
             {
-                path:'',
-                component:SampleComponent,
+                path: '',
+                component: SampleComponent,
             },
 
 
         ]
     },
     {
-        path:'',
-        redirectTo:'dashboard',
-        pathMatch:'full',
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
     },
     {
-      path:'student-dashboard',
-      canActivate:[AuthGuard],
-      children:[
-          {
-              path:'',
-              component:StudentCoursesComponent
-          }
-      ]
+        path: 'student-dashboard',
+        canActivate: [AuthGuard],
+        children: [
+            {
+                path: '',
+                component: StudentCoursesComponent
+            }
+        ]
     },
     {
-        path:'conference',
-        component:ConferenceComponent
+        path: 'conference',
+        component: ConferenceComponent
     }
 ];
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -125,7 +126,7 @@ const appRoutes: Routes = [
 
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    providers:[
+    providers: [
         AuthGuard
     ],
     bootstrap: [

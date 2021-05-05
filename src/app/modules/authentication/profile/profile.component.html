@@ -1,21 +1,21 @@
-<div id="profile" class="page-layout simple tabbed">
+<div class="page-layout simple tabbed" id="profile">
 
     <!-- HEADER -->
-    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+    <div class="header p-24" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center"
          fxLayoutAlign.gt-sm="space-between end">
 
-        <div class="user-info" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+        <div class="user-info" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center"
              fxLayoutAlign.gt-sm="start center">
-            <img class="profile-image avatar huge" src="assets/images/avatars/Velazquez.jpg"
-                 [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-            <div class="name" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+            <img [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}" class="profile-image avatar huge"
+                 src="assets/images/avatars/Velazquez.jpg">
+            <div [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}" class="name">
                 {{first_name + last_name}}
             </div>
         </div>
 
-        <div class="actions" fxLayout="row" fxLayoutAlign="end center" [@animate]="{value:'*',params:{delay:'200ms'}}">
-            <button mat-raised-button color="accent" aria-label="Follow">Follow</button>
-            <button mat-raised-button color="primary" aria-label="Send Message">Send Message</button>
+        <div [@animate]="{value:'*',params:{delay:'200ms'}}" class="actions" fxLayout="row" fxLayoutAlign="end center">
+            <button aria-label="Follow" color="accent" mat-raised-button>Follow</button>
+            <button aria-label="Send Message" color="primary" mat-raised-button>Send Message</button>
         </div>
 
     </div>
@@ -27,17 +27,16 @@
         <mat-tab-group dynamicHeight="true">
 
 
-
             <mat-tab label="About">
                 <profile-about></profile-about>
             </mat-tab>
-<!--            <mat-tab label="Courses">-->
-<!--                <profile-timeline></profile-timeline>-->
-<!--            </mat-tab>-->
+            <!--            <mat-tab label="Courses">-->
+            <!--                <profile-timeline></profile-timeline>-->
+            <!--            </mat-tab>-->
 
-<!--            <mat-tab label="Photos & Videos">-->
-<!--                <profile-photos-videos></profile-photos-videos>-->
-<!--            </mat-tab>-->
+            <!--            <mat-tab label="Photos & Videos">-->
+            <!--                <profile-photos-videos></profile-photos-videos>-->
+            <!--            </mat-tab>-->
 
         </mat-tab-group>
 

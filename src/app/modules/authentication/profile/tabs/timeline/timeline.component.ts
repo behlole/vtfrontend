@@ -1,19 +1,18 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 
-import { fuseAnimations } from '@fuse/animations';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {fuseAnimations} from '@fuse/animations';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {ProfileService} from '../../../profile.service';
 
 @Component({
-    selector     : 'profile-timeline',
-    templateUrl  : './timeline.component.html',
-    styleUrls    : ['./timeline.component.scss'],
+    selector: 'profile-timeline',
+    templateUrl: './timeline.component.html',
+    styleUrls: ['./timeline.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class ProfileTimelineComponent implements OnInit, OnDestroy
-{
+export class ProfileTimelineComponent implements OnInit, OnDestroy {
     timeline: any;
 
     // Private
@@ -26,8 +25,7 @@ export class ProfileTimelineComponent implements OnInit, OnDestroy
      */
     constructor(
         private _profileService: ProfileService
-    )
-    {
+    ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -39,8 +37,7 @@ export class ProfileTimelineComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this._profileService.timelineOnChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(timeline => {
@@ -51,8 +48,7 @@ export class ProfileTimelineComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

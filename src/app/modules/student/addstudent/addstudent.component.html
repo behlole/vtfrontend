@@ -1,15 +1,15 @@
 <mat-toolbar>
-    <span>{{studentService.addStudentForm.controls['id'].value?"Update Student":"New Student"}}</span>
+    <span>{{studentService.addStudentForm.controls['id'].value ? "Update Student" : "New Student"}}</span>
 </mat-toolbar>
 <form (submit)="addStudent()" [formGroup]="studentService.addStudentForm" class="normal-form">
-    <button mat-icon-button (click)="close()">
+    <button (click)="close()" mat-icon-button>
         <mat-icon>close</mat-icon>
     </button>
 
     <mat-grid-list cols="2" rowHeight="300px">
         <mat-grid-tile>
             <div class="controles-container">
-                <input type="hidden" formControlName="id">
+                <input formControlName="id" type="hidden">
                 <mat-form-field style="width: 50%">
                     <input formControlName="first_name" matInput placeholder="Full Name" required>
                 </mat-form-field>
@@ -54,18 +54,17 @@
                     <mat-error>Phone Number is mandatory</mat-error>
                 </mat-form-field>
                 <mat-form-field style="width: 100%">
-                    <input formControlName="date_of_birth" matInput [matDatepicker]="picker" placeholder="Date of Birth"
+                    <input [matDatepicker]="picker" formControlName="date_of_birth" matInput placeholder="Date of Birth"
                            required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
 
-
                 <div class="button-row">
-                    <button mat-raised-button color="primary" type="submit" >Submit
+                    <button color="primary" mat-raised-button type="submit">Submit
                     </button>
-                    <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+                    <button (click)="onClear()" color="warn" mat-raised-button>Clear</button>
                 </div>
             </div>
         </mat-grid-tile>

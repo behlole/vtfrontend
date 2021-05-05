@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <button mat-stroked-button class="btn-dialog-close" (click)="close()" tabindex="-1" style="margin-right:1px: ">
+    <button (click)="close()" class="btn-dialog-close" mat-stroked-button style="margin-right:1px: " tabindex="-1">
         <mat-icon>close</mat-icon>
     </button>
 </mat-toolbar>
@@ -7,10 +7,10 @@
 
     <mat-form-field class="search-form-field">
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Search a keyword of any student" #input>
+        <input #input (keyup)="applyFilter($event)" matInput placeholder="Search a keyword of any student">
 
     </mat-form-field>
-    <div class="mat-elevation-z8" *ngIf="dataSource">
+    <div *ngIf="dataSource" class="mat-elevation-z8">
 
 
         <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>

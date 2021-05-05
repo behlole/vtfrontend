@@ -1,6 +1,6 @@
 <div class="page-layout simple fullwidth docs" style="padding: 10px">
 
-    <div class="mat-elevation-z8" *ngIf="dataSource">
+    <div *ngIf="dataSource" class="mat-elevation-z8">
 
 
         <mat-paginator [pageSizeOptions]="[5,10,25,100]" showFirstLastButtons></mat-paginator>
@@ -36,15 +36,15 @@
                 <mat-cell *matCellDef="let element">{{element.department}}</mat-cell>
 
             </ng-container>
-<!--            <ng-container matColumnDef="actions">-->
+            <!--            <ng-container matColumnDef="actions">-->
 
-<!--                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>-->
-<!--                <mat-cell *matCellDef="let row">-->
-<!--                    <button mat-icon-button *ngIf="row.is_enrolled!=null">-->
-<!--                        <mat-icon title="student enrolled">check</mat-icon>-->
-<!--                    </button>-->
-<!--                </mat-cell>-->
-<!--            </ng-container>-->
+            <!--                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>-->
+            <!--                <mat-cell *matCellDef="let row">-->
+            <!--                    <button mat-icon-button *ngIf="row.is_enrolled!=null">-->
+            <!--                        <mat-icon title="student enrolled">check</mat-icon>-->
+            <!--                    </button>-->
+            <!--                </mat-cell>-->
+            <!--            </ng-container>-->
             <!--            <ng-container matColumnDef="loading">-->
             <!--                <mat-footer-cell *matFooterCellDef colspan="6">-->
             <!--                    Loading Data...-->

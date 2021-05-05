@@ -10,9 +10,9 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-all-meetings',
-  templateUrl: './all-meetings.component.html',
-  styleUrls: ['./all-meetings.component.scss']
+    selector: 'app-all-meetings',
+    templateUrl: './all-meetings.component.html',
+    styleUrls: ['./all-meetings.component.scss']
 })
 export class AllMeetingsComponent implements OnInit {
     // @ts-ignore
@@ -21,8 +21,8 @@ export class AllMeetingsComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     dataSource: MatTableDataSource<any>;
 
-    displayedColumns: string[] = ['id','course_name','meeting_code','start_time','end_time','duration','date'];
-    roleType: String
+    displayedColumns: string[] = ['id', 'course_name', 'meeting_code', 'start_time', 'end_time', 'duration', 'date'];
+    roleType: String;
     data: any;
 
     constructor(

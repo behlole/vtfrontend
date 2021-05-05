@@ -1,28 +1,28 @@
-import { FuseNavigation } from '@fuse/types';
+import {FuseNavigation} from '@fuse/types';
 
 export const StudentNavigation: FuseNavigation[] = [
     {
-        id       : 'applications',
-        title    : 'Applications',
+        id: 'applications',
+        title: 'Applications',
         translate: 'NAV.APPLICATIONS',
-        type     : 'group',
-        children : [
+        type: 'group',
+        children: [
             {
-                id       : 'All Teachers',
-                title    : 'Teachers',
+                id: 'All Teachers',
+                title: 'Teachers',
                 translate: 'NAV.TEACHERS.TITLE',
-                type     : 'item',
-                icon     : 'book',
-                url      : '/student-dashboard/teachers',
+                type: 'item',
+                icon: 'book',
+                url: '/student-dashboard/teachers',
 
             },
             {
-                id       : 'All Courses',
-                title    : 'Courses',
+                id: 'All Courses',
+                title: 'Courses',
                 translate: 'COURSES.TITLE',
-                type     : 'item',
-                icon     : 'book',
-                url      : '/student-dashboard/courses',
+                type: 'item',
+                icon: 'book',
+                url: '/student-dashboard/courses',
             }
         ]
     }

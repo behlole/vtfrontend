@@ -4,10 +4,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {StudentCoursesComponent} from './student-courses.component';
 import {
     MatButtonModule,
-    MatFormFieldModule, MatGridListModule,
-    MatIconModule, MatInputModule,
-    MatPaginatorModule, MatSortModule,
-    MatTableModule, MatToolbarModule
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatToolbarModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';

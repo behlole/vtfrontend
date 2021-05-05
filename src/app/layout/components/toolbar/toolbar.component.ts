@@ -1,25 +1,24 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {TranslateService} from '@ngx-translate/core';
 import * as _ from 'lodash';
 
-import { FuseConfigService } from '@fuse/services/config.service';
-import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
+import {FuseConfigService} from '@fuse/services/config.service';
+import {FuseSidebarService} from '@fuse/components/sidebar/sidebar.service';
 
-import { navigation } from 'app/navigation/navigation';
+import {navigation} from 'app/navigation/navigation';
 import {AuthenticationService} from '../../../modules/authentication/services/authentication.service';
 import {Router} from '@angular/router';
 
 @Component({
-    selector     : 'toolbar',
-    templateUrl  : './toolbar.component.html',
-    styleUrls    : ['./toolbar.component.scss'],
+    selector: 'toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
-export class ToolbarComponent implements OnInit, OnDestroy
-{
+export class ToolbarComponent implements OnInit, OnDestroy {
     horizontalNavbar: boolean;
     rightNavbar: boolean;
     hiddenNavbar: boolean;
@@ -27,8 +26,8 @@ export class ToolbarComponent implements OnInit, OnDestroy
     navigation: any;
     selectedLanguage: any;
     userStatusOptions: any[];
-    first_name:string;
-    last_name:string;
+    first_name: string;
+    last_name: string;
 
 
     // Private
@@ -45,49 +44,48 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
-        private auth:AuthenticationService,
-        private router:Router
-    )
-    {
+        private auth: AuthenticationService,
+        private router: Router
+    ) {
         // Set the defaults
         this.userStatusOptions = [
             {
                 title: 'Online',
-                icon : 'icon-checkbox-marked-circle',
+                icon: 'icon-checkbox-marked-circle',
                 color: '#4CAF50'
             },
             {
                 title: 'Away',
-                icon : 'icon-clock',
+                icon: 'icon-clock',
                 color: '#FFC107'
             },
             {
                 title: 'Do not Disturb',
-                icon : 'icon-minus-circle',
+                icon: 'icon-minus-circle',
                 color: '#F44336'
             },
             {
                 title: 'Invisible',
-                icon : 'icon-checkbox-blank-circle-outline',
+                icon: 'icon-checkbox-blank-circle-outline',
                 color: '#BDBDBD'
             },
             {
                 title: 'Offline',
-                icon : 'icon-checkbox-blank-circle-outline',
+                icon: 'icon-checkbox-blank-circle-outline',
                 color: '#616161'
             }
         ];
 
         this.languages = [
             {
-                id   : 'en',
+                id: 'en',
                 title: 'English',
-                flag : 'us'
+                flag: 'us'
             },
             {
-                id   : 'tr',
+                id: 'tr',
                 title: 'Turkish',
-                flag : 'tr'
+                flag: 'tr'
             }
         ];
 
@@ -104,8 +102,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Subscribe to the config changes
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
@@ -119,9 +116,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
         this.selectedLanguage = _.find(this.languages, {id: this._translateService.currentLang});
 
         //fetching values from localstorage
-        if(localStorage.getItem('user')) {
+        if (localStorage.getItem('user')) {
             let data = JSON.parse(localStorage.getItem('user'));
-            this.first_name = data.user.first_name
+            this.first_name = data.user.first_name;
             this.last_name = data.user.last_name;
         }
     }
@@ -129,8 +126,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -145,8 +141,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
      *
      * @param key
      */
-    toggleSidebarOpen(key): void
-    {
+    toggleSidebarOpen(key): void {
         this._fuseSidebarService.getSidebar(key).toggleOpen();
     }
 
@@ -155,8 +150,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
      *
      * @param value
      */
-    search(value): void
-    {
+    search(value): void {
         // Do your search here...
         console.log(value);
     }
@@ -166,8 +160,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
      *
      * @param lang
      */
-    setLanguage(lang): void
-    {
+    setLanguage(lang): void {
         // Set the selected language for the toolbar
         this.selectedLanguage = lang;
 

@@ -1,5 +1,5 @@
-<div id="photos-videos" class="p-24">
-    <div class="period" *ngFor="let period of photosVideos">
+<div class="p-24" id="photos-videos">
+    <div *ngFor="let period of photosVideos" class="period">
 
         <div class="period-title">
             <span class="name">{{period.name}}</span>
@@ -7,8 +7,8 @@
         </div>
 
         <div class="period-media" fxLayout="row wrap">
-            <div class="media" *ngFor="let media of period.media">
-                <img class="preview" [src]="media.preview" title="{{media.title}}">
+            <div *ngFor="let media of period.media" class="media">
+                <img [src]="media.preview" class="preview" title="{{media.title}}">
                 <div class="title">{{media.title}}</div>
             </div>
         </div>

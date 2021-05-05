@@ -9,7 +9,7 @@ import moment from 'moment';
     templateUrl: './addstudent.component.html',
     styleUrls: ['./addstudent.component.scss']
 })
-export class AddstudentComponent{
+export class AddstudentComponent {
     departments = [
         {id: 'software_engineering', value: 'Software Engineering'},
         {id: 'computer_science', value: 'Computer Science'},
@@ -23,7 +23,8 @@ export class AddstudentComponent{
         private dialogRef: MatDialogRef<AddstudentComponent>,
         private toastr: ToastrService,
         public studentService: StudentServiceService,
-    ) {}
+    ) {
+    }
 
 
     onClear() {
@@ -57,7 +58,6 @@ export class AddstudentComponent{
                     (data) => {
                         this.toastr.success('', data['message']);
                         this.dialogRef.close(true);
-
 
 
                     }, (error) => {

@@ -23,6 +23,14 @@ export class MeetingService {
     }
 
     patchValue(row) {
-        
+
+    }
+
+    fetchStudentActivityRecord(student_id, meeting_id) {
+        return this.http.get(environment.url + `teacher/meeting/details/${meeting_id}/${student_id}`);
+    }
+
+    fetchStudent(student_id) {
+        return this.http.get(environment.url + `teacher/students/get/${student_id}`);
     }
 }

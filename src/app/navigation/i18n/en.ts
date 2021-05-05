@@ -7,11 +7,11 @@ export const locale = {
                 'TITLE': 'Students',
                 'BADGE': '25'
             },
-            'TEACHERS':{
-                'TITLE':'Teachers',
+            'TEACHERS': {
+                'TITLE': 'Teachers',
             },
-            'GUEST':{
-                'TITLE':'Guest',
+            'GUEST': {
+                'TITLE': 'Guest',
             }
 
         },
