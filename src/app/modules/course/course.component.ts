@@ -43,7 +43,9 @@ export class CourseComponent implements OnInit {
         } else {
             this.roleType = 'student';
         }
-        this.spinner.hide();
+        setTimeout(() => {
+            this.spinner.hide();
+        }, 1000);
     }
 
     getCourses() {

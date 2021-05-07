@@ -40,7 +40,9 @@ export class StudentActivityComponent implements OnInit {
         this.spinner.show();
         this.dataSource = new MatTableDataSource(); // create new object
         this.patchDetails();
-        this.spinner.hide();
+        setTimeout(() => {
+            this.spinner.hide();
+        }, 1000);
 
     }
 
@@ -57,7 +59,19 @@ export class StudentActivityComponent implements OnInit {
         this.meetingService.fetchStudentActivityRecord(this.student_id, this.meeting_id).subscribe(
             result => {
                 this.data = result;
-                this.dataSource.data = this.data.student; // on data receive populate dataSource.data array
+                // let arr=[];
+                // console.log(result);
+                // Object.keys(result).map(function(key){
+                //     arr.push({[key]:result[key]})
+                //     return arr;
+                // });
+                // console.log(arr);
+                let data=[];
+                for (const key in result) {
+                    data.push({ key, value: result[key] });
+                }
+                console.log(this.data);
+                this.dataSource.data =data; // on data receive populate dataSource.data array
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
 

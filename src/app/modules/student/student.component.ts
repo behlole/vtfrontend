@@ -39,7 +39,9 @@ export class StudentComponent implements OnInit {
         this.spinner.show();
         this.dataSource = new MatTableDataSource(); // create new object
         this.getStudents(); // forgeted this line
-        this.spinner.hide();
+        setTimeout(() => {
+            this.spinner.hide();
+        }, 1000);
 
 
     }
