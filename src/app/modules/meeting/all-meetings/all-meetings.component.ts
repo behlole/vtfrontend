@@ -8,6 +8,7 @@ import {AddCourseComponent} from '../../course/add-course/add-course.component';
 import {MeetingService} from '../services/meeting.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
+import {delay} from 'rxjs/operators';
 
 @Component({
     selector: 'app-all-meetings',
@@ -39,7 +40,9 @@ export class AllMeetingsComponent implements OnInit {
         this.spinner.show();
         this.dataSource = new MatTableDataSource();
         this.getMeetings();
-        this.spinner.hide();
+        setTimeout(() => {
+            this.spinner.hide();
+        }, 1000);
     }
 
     getMeetings() {

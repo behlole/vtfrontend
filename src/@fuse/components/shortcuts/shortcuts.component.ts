@@ -6,6 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 
 import {FuseMatchMediaService} from '@fuse/services/match-media.service';
 import {FuseNavigationService} from '@fuse/components/navigation/navigation.service';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'fuse-shortcuts',
@@ -45,7 +46,8 @@ export class FuseShortcutsComponent implements OnInit, AfterViewInit, OnDestroy 
         private _fuseMatchMediaService: FuseMatchMediaService,
         private _fuseNavigationService: FuseNavigationService,
         private _mediaObserver: MediaObserver,
-        private _renderer: Renderer2
+        private _renderer: Renderer2,
+        private _location:Location
     ) {
         // Set the defaults
         this.shortcutItems = [];
@@ -208,5 +210,14 @@ export class FuseShortcutsComponent implements OnInit, AfterViewInit, OnDestroy 
     hideMobileShortcutsPanel(): void {
         this.mobileShortcutsPanelActive = false;
         this._renderer.removeClass(this.shortcutsEl.nativeElement, 'show-mobile-panel');
+    }
+
+
+    backBtnLocation() {
+        this._location.back();
+    }
+
+    forwardBtnLocation() {
+        this._location.forward();
     }
 }

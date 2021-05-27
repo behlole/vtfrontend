@@ -5,10 +5,19 @@
         <button (click)="showMobileShortcutsPanel()" mat-icon-button>
             <mat-icon class="amber-600-fg">star</mat-icon>
         </button>
+
     </div>
 
     <div class="shortcuts" fxHide fxLayout="row" fxShow.gt-sm>
+        <button mat-mini-fab color="accent" matTooltip="Back to Page" class="mr-20 icon-color__white icon-color__darkblue icon-color__white icon-color__darkblue btn-mat-fab-mini-size__small btn-prev-page" (click)="backBtnLocation()" >
+            <mat-icon class="secondary-text">arrow_back</mat-icon>
+        </button>
 
+        <div class="toolbar-separator"></div>
+
+        <button mat-mini-fab color="accent" matTooltip="Forward to Page" class="ml-20 mr-20 icon-color__white icon-color__darkblue icon-color__white icon-color__darkblue btn-mat-fab-mini-size__small btn-next-page" (click)="forwardBtnLocation()">
+            <mat-icon class="secondary-text">arrow_forward</mat-icon>
+        </button>
         <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-between center">
 
             <div fxLayout="row" fxLayoutAlign="start center">

@@ -38,7 +38,9 @@ export class MeetingDetailComponent implements OnInit {
         this.spinner.show();
         this.dataSource = new MatTableDataSource(); // create new object
         this.patchDetails();
-        this.spinner.hide();
+        setTimeout(() => {
+            this.spinner.hide();
+        }, 1000);
     }
 
     applyFilter(event: Event) {
@@ -63,7 +65,6 @@ export class MeetingDetailComponent implements OnInit {
         this.meetingService.fetchMeetingDetail(this.meetingCode).subscribe(
             result => {
                 this.data = result;
-                console.log(this.data.student);
                 this.dataSource.data = this.data.student; // on data receive populate dataSource.data array
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
