@@ -30,6 +30,8 @@ import {StudentCoursesComponent} from './modules/student-courses/student-courses
 import {StudentCoursesModule} from './modules/student-courses/student-courses.module';
 import {MeetingModule} from './modules/meeting/meeting.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {MatAutocompleteModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
 
 const appRoutes: Routes = [
     {
@@ -123,6 +125,11 @@ const appRoutes: Routes = [
         StudentCoursesModule,
         MeetingModule,
         NgxSpinnerModule,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatSelectModule,
+        MatCheckboxModule,
 
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

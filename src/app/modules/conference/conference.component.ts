@@ -5,6 +5,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ConferenceService} from './services/conference.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {stat} from 'fs';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -15,6 +19,15 @@ declare var JitsiMeetExternalAPI: any;
 })
 export class ConferenceComponent implements AfterViewInit, OnInit {
 
+    myControl = new FormControl();
+    options: string[] = [];
+    filteredOptions: Observable<string[]>;
+
+    private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
+        console.log(this.options);
+        return this.options.filter(option => this.options.indexOf(filterValue) === 0);
+    }
     meetingCode = Math.random().toString(36).substring(2);
     title = 'Meeting';
     domain: string = environment.videoServer;
@@ -24,6 +37,7 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     course: any;
     courseId: any;
     roleType: any;
+    mute:null;
 
     constructor(
         private _fuseConfigService: FuseConfigService,
@@ -51,6 +65,10 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     }
 
     ngOnInit(): void {
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
         this.route.queryParams.subscribe(params => {
             this.course = params['course_name'];
             this.courseId = params['course_id'];
@@ -74,7 +92,10 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
 
         if (this.roleType == 1) {
             this.api.addEventListeners({
-                participantJoined: function(result) {
+                participantJoined: (result) => {
+                    this.options.push(result.displayName);
+                    console.log("options are ",this.options);
+                    this.toaster.success(result.displayName + ' Joined Successfully', 'Success');
                 },
                 videoConferenceLeft: () => this.endMeeting().subscribe(data => {
                     this.toaster.success('Meeting ended successfully');
@@ -111,28 +132,64 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                             this.toaster.error(error);
                         });
                 },
-                audioMuteStatusChanged: () => {
-                    this.recordActivity('Audio-Status-Changed').subscribe(
-                        data => {
-                        },
-                        error => {
-                        }
-                    );
-                },
-                screenSharingStatusChanged: () => {
-                    this.recordActivity('Screen-Sharing-Status-Changed').subscribe(
-                        data => {
-                        },
-                        error => {
+                audioMuteStatusChanged: (status) => {
+                    if (this.mute!=status.muted) {
+                        this.mute = status.muted;
 
+                        if (this.mute) {
+                            this.recordActivity('Audio-Turned-Off').subscribe(
+                                data => {
+                                },
+                                error => {
+                                }
+                            );
+                        } else {
+                            this.recordActivity('Audio-Turned-On').subscribe(
+                                data => {
+                                },
+                                error => {
+                                }
+                            );
                         }
-                    );
+                    }
                 },
-                videoMuteStatusChanged: () => {
-                    this.recordActivity('Video-Status-Changed').subscribe(
-                        data => {
-                        }
-                    );
+                screenSharingStatusChanged: (status) => {
+                    if (status.muted) {
+                        this.recordActivity('Screen-Sharing-Turned-Off').subscribe(
+                            data => {
+                            },
+                            error => {
+
+                            }
+                        );
+                    }
+                    else
+                    {
+                        this.recordActivity('Screen-Sharing-Turned-On').subscribe(
+                            data => {
+                            },
+                            error => {
+
+                            }
+                        );
+                    }
+                },
+                videoMuteStatusChanged: (status) => {
+                    if (status.muted)
+                    {
+                        this.recordActivity('Video-Turned-Off').subscribe(
+                            data => {
+                            }
+                        );
+                    }
+                    else
+                    {
+                        this.recordActivity('Video-Turned-On').subscribe(
+                            data => {
+                            }
+                        );
+                    }
+
                 },
             });
         }

@@ -48,7 +48,7 @@ export class TokenInterceptorService implements HttpInterceptor {
                 if (err instanceof HttpErrorResponse) {
                     if (err.status == 401) {
                         localStorage.removeItem('token');
-                        this.toasterService.error('Please log in again !', 'Session Expired');
+                        this.toasterService.error('Please provide correct email and password!', 'Authentication Error !');
                         this.router.navigate(['/login']);
                     }
                     //log error

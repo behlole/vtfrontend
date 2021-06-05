@@ -49,7 +49,7 @@
                     <a *ngIf="roleType=='teacher' && row.current_meeting_code" [queryParams]="{course_name:row.course_name, course_id:row.id, course_code:row.current_meeting_code}" color="primary"
                        mat-icon-button
                        routerLink='/conference'>
-                        <mat-icon title="JOIN CLASS">read_more</mat-icon>
+                        <mat-icon title="JOIN CLASS">duo</mat-icon>
                     </a>
                     <a [queryParams]="{course_name:row.course_name,course_id:row.id}" color="accent" mat-icon-button
                        routerLink='/conference'>
