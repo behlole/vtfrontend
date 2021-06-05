@@ -7,7 +7,6 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatIconModule} from '@angular/material/icon';
 import {TranslateModule} from '@ngx-translate/core';
 import 'hammerjs';
-
 import {FuseModule} from '@fuse/fuse.module';
 import {FuseSharedModule} from '@fuse/shared.module';
 import {FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule} from '@fuse/components';
@@ -32,6 +31,9 @@ import {MeetingModule} from './modules/meeting/meeting.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatAutocompleteModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
+import {environment} from '../environments/environment';
+
+
 
 const appRoutes: Routes = [
     {
@@ -130,7 +132,6 @@ const appRoutes: Routes = [
         MatInputModule,
         MatSelectModule,
         MatCheckboxModule,
-
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [

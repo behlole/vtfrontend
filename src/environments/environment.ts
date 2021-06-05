@@ -6,7 +6,8 @@ export const environment = {
     production: false,
     hmr: false,
     url: 'http://localhost:8000/',
-    videoServer: 'meet.jit.si'
+    videoServer: 'meet.jit.si',
+    socketServer:'http://localhost:3000/'
 };
 
 /*

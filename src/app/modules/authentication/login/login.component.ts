@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(data).subscribe({
             next(data) {
                 localStorage.setItem('user', JSON.stringify(data));
-                route.navigate(['dashboard']);
+                route.navigateByUrl('/dashboard');
                 toaster.success('Success', 'Logged in Successfully!');
 
             },

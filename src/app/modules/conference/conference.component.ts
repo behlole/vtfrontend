@@ -8,7 +8,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {stat} from 'fs';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -24,6 +23,7 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     filteredOptions: Observable<string[]>;
 
     private _filter(value: string): string[] {
+                    this.endMeetingToaster = false;
         const filterValue = value.toLowerCase();
         console.log(this.options);
         return this.options.filter(option => this.options.indexOf(filterValue) === 0);
@@ -37,7 +37,8 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     course: any;
     courseId: any;
     roleType: any;
-    mute:null;
+    mute: null;
+    endMeetingToaster = false;
 
     constructor(
         private _fuseConfigService: FuseConfigService,
@@ -98,9 +99,12 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                     this.toaster.success(result.displayName + ' Joined Successfully', 'Success');
                 },
                 videoConferenceLeft: () => this.endMeeting().subscribe(data => {
-                    this.toaster.success('Meeting ended successfully');
-                    this.api.executeCommand('hangup');
-                    this.router.navigate(['dashboard']);
+                    if (this.endMeetingToaster == false) {
+                        this.toaster.success('Meeting ended successfully');
+                        this.api.executeCommand('hangup');
+                        this.router.navigate(['dashboard']);
+                        this.endMeetingToaster = true;
+                    }
                 }),
                 videoConferenceJoined: () => this.informStudents().subscribe(result => {
                         if (result['error']) {
