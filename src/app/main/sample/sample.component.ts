@@ -4,6 +4,7 @@ import {FuseTranslationLoaderService} from '@fuse/services/translation-loader.se
 
 import {locale as english} from './i18n/en';
 import {locale as turkish} from './i18n/tr';
+import {FuseNavigationService} from '../../../@fuse/components/navigation/navigation.service';
 
 @Component({
     selector: 'sample',
@@ -15,8 +16,17 @@ export class SampleComponent {
     data: any;
 
     constructor(
-        private _fuseTranslationLoaderService: FuseTranslationLoaderService
+        private _fuseTranslationLoaderService: FuseTranslationLoaderService,
+        private fuseNavigation: FuseNavigationService
     ) {
+        let nav:any=this.fuseNavigation.getNavigation('main')[0];
+        if (nav.children.length>1)
+        {
+        }
+        else
+        {
+            window.location.reload();
+        }
         this._fuseTranslationLoaderService.loadTranslations(english, turkish);
     }
 

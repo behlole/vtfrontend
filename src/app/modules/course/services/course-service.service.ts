@@ -17,7 +17,7 @@ export class CourseServiceService {
     }
 
     getAllCourses() {
-        return this.http.get(environment.url + 'teacher/courses/');
+        return this.http.get(environment.url + 'teacher/courses');
     }
 
     initializeForm() {
@@ -54,6 +54,6 @@ export class CourseServiceService {
     }
 
     getAllCoursesForStudent() {
-        return this.http.get(environment.url + 'student/courses/');
+        return this.http.get(environment.url + 'student/courses');
     }
 }

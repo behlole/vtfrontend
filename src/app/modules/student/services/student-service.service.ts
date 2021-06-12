@@ -32,7 +32,7 @@ export class StudentServiceService {
 
     getAllStudents() {
 
-        return this.http.get(environment.url + 'teacher/students/');
+        return this.http.get(environment.url + 'teacher/students');
     }
 
     addStudent(student: any) {

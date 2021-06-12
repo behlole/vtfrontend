@@ -5,6 +5,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AddCourseComponent} from '../../course/add-course/add-course.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {ProfileService} from '../profile.service';
+import {ChangePasswordComponent} from './change-password/change-password.component';
 
 @Component({
     selector: 'profile',
@@ -46,6 +47,18 @@ export class ProfileComponent {
         dialogConfig.autoFocus = true;
         dialogConfig.width = '60%';
         let dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe((completed) => {
+            if (completed == true) {
+                window.location.reload();
+            }
+        });
+    }
+
+    changePasswordForm() {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '60%';
+        let dialogRef = this.dialog.open(ChangePasswordComponent, dialogConfig);
         dialogRef.afterClosed().subscribe((completed) => {
             if (completed == true) {
                 window.location.reload();

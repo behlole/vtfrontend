@@ -4,13 +4,16 @@ import {ToastrService} from 'ngx-toastr';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProfileService} from '../../profile.service';
 
+
 @Component({
     selector: 'app-edit-profile',
     templateUrl: './edit-profile.component.html',
     styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-    userData:any;
+    userData: any;
+    role_type: any;
+    role_id: any;
     departments = [
         {id: 'software_engineering', value: 'Software Engineering'},
         {id: 'computer_science', value: 'Computer Science'},
@@ -38,11 +41,14 @@ export class EditProfileComponent implements OnInit {
     });
 
     ngOnInit() {
-        this.profileService.getUserData();
+        this.patchData();
     }
 
     editProfile() {
+        this.profileService.submitEditUserData(this.editProfileForm.value).subscribe((response: any) => {
 
+                this.toaster.success(response.message);
+        });
     }
 
     close() {
@@ -55,5 +61,32 @@ export class EditProfileComponent implements OnInit {
             id: null,
             course_name: '',
         });
+    }
+
+    patchData() {
+        this.profileService.getUserDetail().subscribe(({
+                                                           city,
+                                                           date_of_birth,
+                                                           department,
+                                                           email,
+                                                           first_name,
+                                                           gender,
+                                                           id,
+                                                           last_name,
+                                                           phone_number
+                                                       }: any) => {
+            this.editProfileForm.patchValue({
+                'id': id,
+                'first_name': first_name,
+                'last_name': last_name,
+                'email': email,
+                'phone_number': phone_number,
+                'city': city,
+                'gender': gender,
+                'department': department,
+                'date_of_birth': date_of_birth,
+            });
+        });
+
     }
 }

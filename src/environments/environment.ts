@@ -6,6 +6,7 @@ export const environment = {
     production: false,
     hmr: false,
     url: 'http://localhost:8000/',
+    // url: 'https://vtbackend.behloleaqil.com/',
     videoServer: 'meet.jit.si',
     socketServer:'http://localhost:3000/'
 };
