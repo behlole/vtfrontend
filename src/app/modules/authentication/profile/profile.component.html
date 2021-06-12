@@ -9,13 +9,13 @@
             <img [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}" class="profile-image avatar huge"
                  src="assets/images/avatars/Velazquez.jpg">
             <div [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}" class="name">
-                {{first_name + last_name}}
+                {{first_name +' '+ last_name+' ('+designation+' )'}}
             </div>
         </div>
 
         <div [@animate]="{value:'*',params:{delay:'200ms'}}" class="actions" fxLayout="row" fxLayoutAlign="end center">
-            <button aria-label="Follow" color="accent" mat-raised-button>Follow</button>
-            <button aria-label="Send Message" color="primary" mat-raised-button>Send Message</button>
+            <button aria-label="Edit Profile" color="accent" mat-raised-button (click)="onEdit()">Edit Profile</button>
+            <button aria-label="Change Password" color="warn" mat-raised-button>Change Password</button>
         </div>
 
     </div>
@@ -30,13 +30,13 @@
             <mat-tab label="About">
                 <profile-about></profile-about>
             </mat-tab>
-            <!--            <mat-tab label="Courses">-->
-            <!--                <profile-timeline></profile-timeline>-->
-            <!--            </mat-tab>-->
+<!--                        <mat-tab label="Courses">-->
+            <!--                            <profile-timeline></profile-timeline>-->
+            <!--                        </mat-tab>-->
 
-            <!--            <mat-tab label="Photos & Videos">-->
-            <!--                <profile-photos-videos></profile-photos-videos>-->
-            <!--            </mat-tab>-->
+            <!--                        <mat-tab label="Photos & Videos">-->
+            <!--                            <profile-photos-videos></profile-photos-videos>-->
+            <!--                        </mat-tab>-->
 
         </mat-tab-group>
 

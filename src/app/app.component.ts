@@ -16,7 +16,6 @@ import {StudentNavigation} from 'app/navigation/StudentNavigation';
 import {locale as navigationEnglish} from 'app/navigation/i18n/en';
 import {locale as navigationTurkish} from 'app/navigation/i18n/tr';
 import {GuestNavigation} from './navigation/GuestNavigation';
-import {SocketService} from './modules/conference/services/socket.service';
 
 @Component({
     selector: 'app',
@@ -51,28 +50,23 @@ export class AppComponent implements OnInit, OnDestroy {
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _translateService: TranslateService,
         private _platform: Platform,
-        private socket:SocketService
     ) {
-        this.socket.connect();
-        // this.socket.on('connection', () => {
-        //     console.log('connected');
-        // });
+
         //Get default navigation
         if (localStorage.getItem('user')) {
             let details = JSON.parse(localStorage.getItem('user'));
             if (details.user.role_type == 1) {
-                this.navigation = navigation;
+                this._fuseNavigationService.register('main', navigation);
+            } else if (details.user.role_type==2){
+                this._fuseNavigationService.register('main', StudentNavigation);
 
-            } else if (details.user.role_type == 2) {
-                this.navigation = StudentNavigation;
             }
+        }
+        else
+        {
+            this._fuseNavigationService.register('main', GuestNavigation);
 
         }
-        this.navigation = GuestNavigation;
-
-        // Register the navigation to the service
-        this._fuseNavigationService.register('main', this.navigation);
-
         // Set the main navigation as our current navigation
         this._fuseNavigationService.setCurrentNavigation('main');
 

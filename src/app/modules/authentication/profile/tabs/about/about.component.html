@@ -11,34 +11,34 @@
             <div class="content">
                 <!--                <div class="info-line">-->
                 <!--                    <div class="title">ID :</div>-->
-                <!--                    <div class="info">{{about.id}}</div>-->
+                <!--                    <div class="info">{{about?.id}}</div>-->
                 <!--                </div>-->
                 <div class="info-line">
                     <div class="title">First Name</div>
-                    <div class="info">{{about.first_name}}</div>
+                    <div class="info">{{about?.first_name}}</div>
                 </div>
                 <div class="info-line">
                     <div class="title">Last Name</div>
-                    <div class="info">{{about.last_name}}</div>
+                    <div class="info">{{about?.last_name}}</div>
                 </div>
                 <div class="info-line">
                     <div class="title">Gender</div>
-                    <div class="info">{{about.gender}}</div>
+                    <div class="info">{{about?.gender}}</div>
                 </div>
                 <div class="info-line">
                     <div class="title">E-mail</div>
-                    <div class="info">{{about.email}}</div>
+                    <div class="info">{{about?.email}}</div>
                 </div>
 
                 <div class="info-line">
                     <div class="title">Birthday</div>
-                    <div class="info">{{about.date_of_birth}}</div>
+                    <div class="info">{{about?.date_of_birth}}</div>
                 </div>
 
                 <!--                <div class="info-line">-->
                 <!--                    <div class="title">Locations</div>-->
                 <!--                    <div class="info location" fxLayout="row" fxLayoutAlign="start center"-->
-                <!--                         *ngFor="let location of about.general.locations">-->
+                <!--                         *ngFor="let location of about?.general.locations">-->
                 <!--                        <span>{{location}}</span>-->
                 <!--                        <mat-icon class="s-16 ml-4">location_on</mat-icon>-->
                 <!--                    </div>-->
@@ -46,7 +46,7 @@
 
                 <!--                <div class="info-line">-->
                 <!--                    <div class="title">About Me</div>-->
-                <!--                    <div class="info">{{about.general.about}}</div>-->
+                <!--                    <div class="info">{{about?.general.about}}</div>-->
                 <!--                </div>-->
             </div>
 
@@ -65,18 +65,18 @@
                 </div>
                 <div class="info-line">
                     <div class="title">Department</div>
-                    <div class="info">{{about.department}}</div>
+                    <div class="info">{{about?.department}}</div>
                 </div>
                 <div class="info-line">
                     <div class="title">Joining Date</div>
-                    <div class="info">{{about.updated_at | date}}</div>
+                    <div class="info">{{about?.updated_at | date}}</div>
                 </div>
 
 
                 <!--                <div class="info-line">-->
                 <!--                    <div class="title">Jobs</div>-->
                 <!--                    <table class="info jobs">-->
-                <!--                        <tr class="job" *ngFor="let job of about.work.jobs">-->
+                <!--                        <tr class="job" *ngFor="let job of about?.work.jobs">-->
                 <!--                            <td class="company">{{job.company}}</td>-->
                 <!--                            <td class="date">{{job.date}}</td>-->
                 <!--                        </tr>-->
@@ -94,23 +94,23 @@
             <div class="content">
                 <div class="info-line">
                     <div class="title">Address</div>
-                    <div class="info">{{about.city}}</div>
+                    <div class="info">{{about?.city}}</div>
                 </div>
                 <div class="info-line">
                     <div class="title">Tel.</div>
                     <div class="info">
-                        {{about.phone_number}}
+                        {{about?.phone_number}}
                     </div>
                 </div>
                 <!--                <div class="info-line">-->
                 <!--                    <div class="title">Website</div>-->
-                <!--                    <div class="info" *ngFor="let website of about.contact.websites">-->
+                <!--                    <div class="info" *ngFor="let website of about?.contact.websites">-->
                 <!--                        <span>{{website}}</span>-->
                 <!--                    </div>-->
                 <!--                </div>-->
                 <!--                <div class="info-line">-->
                 <!--                    <div class="title">Emails</div>-->
-                <!--                    <div class="info" *ngFor="let email of about.contact.emails">-->
+                <!--                    <div class="info" *ngFor="let email of about?.contact.emails">-->
                 <!--                        <span>{{email}}</span>-->
                 <!--                    </div>-->
                 <!--                </div>-->
@@ -132,7 +132,7 @@
         <!--                </header>-->
 
         <!--                &lt;!&ndash;            <div class="content" fxLayout="row wrap">&ndash;&gt;-->
-        <!--                &lt;!&ndash;                <div class="friend" fxFlex="20" *ngFor="let friend of about.friends">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                <div class="friend" fxFlex="20" *ngFor="let friend of about?.friends">&ndash;&gt;-->
         <!--                &lt;!&ndash;                    <img [src]="friend.avatar">&ndash;&gt;-->
         <!--                &lt;!&ndash;                </div>&ndash;&gt;-->
         <!--                &lt;!&ndash;            </div>&ndash;&gt;-->
@@ -150,7 +150,7 @@
 
         <!--                <div class="content">-->
 
-        <!--                    &lt;!&ndash;                <div class="group" *ngFor="let group of about.groups" fxLayout="row"&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                <div class="group" *ngFor="let group of about?.groups" fxLayout="row"&ndash;&gt;-->
         <!--                    &lt;!&ndash;                     fxLayoutAlign="space-between center">&ndash;&gt;-->
 
         <!--                    &lt;!&ndash;                    <div fxLayout="row" fxLayoutAlign="start center">&ndash;&gt;-->

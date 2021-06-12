@@ -1,7 +1,8 @@
 <mat-toolbar>
-    <span>{{studentService.addStudentForm.controls['id'].value ? "Update Student" : "New Student"}}</span>
+    <span>Edit Profile</span>
 </mat-toolbar>
-<form (submit)="addStudent()" [formGroup]="studentService.addStudentForm" class="normal-form">
+<form (submit)="editProfile()" [formGroup]="editProfileForm" class="normal-form">
+
 
     <mat-grid-list cols="2" rowHeight="300px">
         <mat-grid-tile>

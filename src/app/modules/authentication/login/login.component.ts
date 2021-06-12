@@ -6,7 +6,9 @@ import {fuseAnimations} from '@fuse/animations';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-
+import {environment} from '../../../../environments/environment';
+import {FuseNavigationService} from '../../../../@fuse/components/navigation/navigation.service';
+declare var io:any;
 @Component({
     selector: 'login',
     templateUrl: './login.component.html',
@@ -16,6 +18,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+    socket:any;
 
     /**
      * Constructor
@@ -28,8 +31,13 @@ export class LoginComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private authenticationService: AuthenticationService,
         private router: Router,
-        private toaster: ToastrService
+        private toaster: ToastrService,
+        private fuseNavigationService:FuseNavigationService
     ) {
+
+        this.socket=io(environment.socketServer);
+        console.log(this.socket);
+        this.socket
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
@@ -71,6 +79,7 @@ export class LoginComponent implements OnInit {
             'password': this.loginForm.getRawValue().password
         };
         this.authenticationService.login(data).subscribe({
+
             next(data) {
                 localStorage.setItem('user', JSON.stringify(data));
                 route.navigateByUrl('/dashboard');

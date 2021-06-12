@@ -19,10 +19,10 @@ export class StudentActivityComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     dataSource: MatTableDataSource<any>;
     displayedColumns: string[] = ['id', 'activity_type', 'time', 'date'];
-    private meeting_id;
-    private student_id;
-    private data: any;
-    private studentData: any;
+    meeting_id;
+    student_id;
+    data: any;
+    studentData: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -70,7 +70,6 @@ export class StudentActivityComponent implements OnInit {
                 for (const key in result) {
                     data.push({ key, value: result[key] });
                 }
-                console.log(this.data);
                 this.dataSource.data =data; // on data receive populate dataSource.data array
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;

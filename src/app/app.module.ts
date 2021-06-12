@@ -31,9 +31,6 @@ import {MeetingModule} from './modules/meeting/meeting.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatAutocompleteModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
-import {environment} from '../environments/environment';
-
-
 
 const appRoutes: Routes = [
     {
@@ -88,7 +85,7 @@ const appRoutes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes,{useHash:true}),
 
         TranslateModule.forRoot(),
 
@@ -132,10 +129,11 @@ const appRoutes: Routes = [
         MatInputModule,
         MatSelectModule,
         MatCheckboxModule,
+
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [
-        AuthGuard
+        AuthGuard,
     ],
     bootstrap: [
         AppComponent

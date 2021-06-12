@@ -20,7 +20,7 @@ export class MeetingDetailComponent implements OnInit {
     dataSource: MatTableDataSource<any>;
     displayedColumns: string[] = ['id', 'first_name', 'last_name', 'gender', 'phone_number', 'department', 'city'];
     private meetingCode;
-    private data: any;
+    data: any;
 
     constructor(
         private route: ActivatedRoute,

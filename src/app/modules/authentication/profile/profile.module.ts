@@ -11,6 +11,14 @@ import {ProfileService} from '../profile.service';
 import {ProfileTimelineComponent} from './tabs/timeline/timeline.component';
 import {ProfileAboutComponent} from './tabs/about/about.component';
 import {ProfilePhotosVideosComponent} from './tabs/photos-videos/photos-videos.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import {
+    MatFormFieldModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatDatepickerModule, MatRadioModule, MatSelectModule
+} from '@angular/material';
 
 
 const routes = [
@@ -28,7 +36,8 @@ const routes = [
         ProfileComponent,
         ProfileTimelineComponent,
         ProfileAboutComponent,
-        ProfilePhotosVideosComponent
+        ProfilePhotosVideosComponent,
+        EditProfileComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -38,10 +47,20 @@ const routes = [
         MatIconModule,
         MatTabsModule,
 
-        FuseSharedModule
+        FuseSharedModule,
+        MatToolbarModule,
+        MatGridListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatRadioModule,
+        MatSelectModule
     ],
     providers: [
         ProfileService
+    ],
+    entryComponents:[
+        EditProfileComponent
     ]
 })
 export class ProfileModule {

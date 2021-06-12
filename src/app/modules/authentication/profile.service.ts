@@ -13,6 +13,7 @@ export class ProfileService {
     timelineOnChanged: BehaviorSubject<any>;
     aboutOnChanged: BehaviorSubject<any>;
     photosVideosOnChanged: BehaviorSubject<any>;
+    id: any;
 
     /**
      * Constructor
@@ -90,4 +91,7 @@ export class ProfileService {
         });
     }
 
+    getUserData() {
+        return this._httpClient.get(`/get-user-data/${this.id}`);
+    }
 }
