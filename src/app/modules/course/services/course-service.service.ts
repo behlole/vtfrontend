@@ -46,7 +46,7 @@ export class CourseServiceService {
     }
 
     deleteCourse(id) {
-        return this.http.delete(environment.url + `teacher/courses/delete/${id}`);
+        return this.http.get(environment.url + `teacher/courses/delete/${id}`);
     }
 
     getEnrolled(id) {

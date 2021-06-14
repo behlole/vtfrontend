@@ -1,4 +1,6 @@
-<div class="page-layout simple tabbed" id="profile">
+<div class="page-layout simple tabbed" id="profile"  style="background: #abbaab;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffffff, #abbaab);">
 
     <!-- HEADER -->
     <div class="header p-24" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center"
@@ -27,7 +29,7 @@
         <mat-tab-group dynamicHeight="true">
 
 
-            <mat-tab label="About">
+            <mat-tab label="About" >
                 <profile-about></profile-about>
             </mat-tab>
 <!--                        <mat-tab label="Courses">-->

@@ -21,7 +21,7 @@ export class StudentServiceService {
     });
     courseForm: FormGroup = new FormGroup({
         id: new FormControl(''),
-        course_id: new FormControl('', Validators.required),
+        course_id: new FormControl(''),
         student_id: new FormControl('')
     });
 
@@ -74,10 +74,19 @@ export class StudentServiceService {
     }
 
     deleteStudent(id) {
-        return this.http.delete(environment.url + `teacher/students/delete/${id}`);
+        return this.http.get(environment.url + `teacher/students/delete/${id}`);
     }
 
     enrolStudent(value: any) {
-        return this.http.post(environment.url + 'teacher/courses/enrol', value);
+            return this.http.post(environment.url + 'teacher/courses/enrol', value);
+    }
+
+    getCompleteListOfudents() {
+        return this.http.get(environment.url + 'teacher/students/get-all');
+    }
+
+    addStudentToTeacher(id) {
+        // @ts-ignore
+        return this.http.get(environment.url + `teacher/students/add-from-all/${id}`);
     }
 }

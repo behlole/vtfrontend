@@ -1,4 +1,8 @@
-<div class="page-layout simple fullwidth docs" style="padding: 10px">
+<div class="page-layout simple fullwidth docs" style="padding: 10px"  style="background: #abbaab;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffffff, #abbaab);">
+    <img mat-card-image src="../../../assets/images/backgrounds/meting.jpg" style="height: 20%"/>
+
     <mat-form-field class="search-form-field">
         <mat-label>Filter</mat-label>
         <input #input (keyup)="applyFilter($event)" matInput placeholder="Search a keyword of any meeting">
