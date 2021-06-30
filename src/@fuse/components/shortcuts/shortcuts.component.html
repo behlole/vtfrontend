@@ -18,36 +18,36 @@
         <button mat-mini-fab color="accent" matTooltip="Forward to Page" class="ml-20 mr-20 icon-color__white icon-color__darkblue icon-color__white icon-color__darkblue btn-mat-fab-mini-size__small btn-next-page" (click)="forwardBtnLocation()">
             <mat-icon class="secondary-text">arrow_forward</mat-icon>
         </button>
-        <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-between center">
+<!--        <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-between center">-->
 
-            <div fxLayout="row" fxLayoutAlign="start center">
+<!--            <div fxLayout="row" fxLayoutAlign="start center">-->
 
-                <div *ngFor="let shortcutItem of shortcutItems" class="w-40 h-40 p-4" fxLayout="row"
-                     fxLayoutAlign="center center">
+<!--                <div *ngFor="let shortcutItem of shortcutItems" class="w-40 h-40 p-4" fxLayout="row"-->
+<!--                     fxLayoutAlign="center center">-->
 
-                    <a [routerLink]="shortcutItem.url" mat-icon-button matTooltip="{{shortcutItem.title}}">
-                        <mat-icon *ngIf="shortcutItem.icon" class="secondary-text">{{shortcutItem.icon}}</mat-icon>
-                        <span *ngIf="!shortcutItem.icon" class="h2 secondary-text text-bold">
-                            {{shortcutItem.title.substr(0, 1).toUpperCase()}}
-                        </span>
-                    </a>
+<!--                    <a [routerLink]="shortcutItem.url" mat-icon-button matTooltip="{{shortcutItem.title}}">-->
+<!--                        <mat-icon *ngIf="shortcutItem.icon" class="secondary-text">{{shortcutItem.icon}}</mat-icon>-->
+<!--                        <span *ngIf="!shortcutItem.icon" class="h2 secondary-text text-bold">-->
+<!--                            {{shortcutItem.title.substr(0, 1).toUpperCase()}}-->
+<!--                        </span>-->
+<!--                    </a>-->
 
-                </div>
+<!--                </div>-->
 
-                <button (menuOpened)="onMenuOpen()" [matMenuTriggerFor]="addMenu" mat-icon-button
-                        matTooltip="Click to add/remove shortcut">
-                    <mat-icon class="amber-600-fg">star</mat-icon>
-                </button>
+<!--                <button (menuOpened)="onMenuOpen()" [matMenuTriggerFor]="addMenu" mat-icon-button-->
+<!--                        matTooltip="Click to add/remove shortcut">-->
+<!--                    <mat-icon class="amber-600-fg">star</mat-icon>-->
+<!--                </button>-->
 
-            </div>
+<!--            </div>-->
 
-            <div class="shortcuts-mobile-close" fxHide fxLayout="row" fxLayoutAlign="start center" fxShow.lt-md>
-                <button (click)="hideMobileShortcutsPanel()" mat-icon-button>
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
+<!--            <div class="shortcuts-mobile-close" fxHide fxLayout="row" fxLayoutAlign="start center" fxShow.lt-md>-->
+<!--                <button (click)="hideMobileShortcutsPanel()" mat-icon-button>-->
+<!--                    <mat-icon>close</mat-icon>-->
+<!--                </button>-->
+<!--            </div>-->
 
-        </div>
+<!--        </div>-->
 
         <mat-menu #addMenu="matMenu" class="w-240">
 

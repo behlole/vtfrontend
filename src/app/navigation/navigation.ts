@@ -18,10 +18,28 @@ export const navigation: FuseNavigation[] = [
             {
                 id: 'All Students',
                 title: 'Students',
-                translate: 'NAV.STUDENTS.TITLE',
-                type: 'item',
-                icon: 'school',
-                url: 'dashboard/students',
+                translate: 'NAV.Main.TITLE',
+                type: 'collapsable',
+                children:[
+                    {
+                        id: 'All Students',
+                        title: 'All Students',
+                        translate: 'NAV.STUDENTS.TITLE',
+                        type: 'item',
+                        icon: 'school',
+                        url: 'dashboard/students',
+
+                    },
+                    {
+                        id: 'All Students',
+                        title: 'Enrolled Students',
+                        translate: 'NAV.Enrolled.TITLE',
+                        type: 'item',
+                        icon: 'school',
+                        url: 'dashboard/enrolled-students',
+
+                    }
+                ]
             },
             {
                 id: 'All Courses',
@@ -38,6 +56,14 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: 'stars',
                 url: 'dashboard/meetings',
+            },
+            {
+                id: 'Organize Quiz',
+                title: 'Quizzes',
+                translate: 'MEETINGS.Quiz',
+                type: 'item',
+                icon: 'stars',
+                url: 'https://qms.qalamguru.com/',
             }
         ]
     }

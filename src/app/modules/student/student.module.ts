@@ -26,8 +26,14 @@ import {StudentServiceService} from './services/student-service.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptorService} from '../authentication/services/token-interceptor.service';
 import {EnrollStudentComponent} from './enroll-student/enroll-student.component';
+import { EnrolledStudentsComponent } from './enrolled-students/enrolled-students.component';
 
 const routes = [
+    {
+        path: 'dashboard/enrolled-students',
+        component: EnrolledStudentsComponent,
+        canActivate: [AuthGuard],
+    },
     {
         path: 'dashboard/students',
         component: StudentComponent,
@@ -36,7 +42,7 @@ const routes = [
 ];
 
 @NgModule({
-    declarations: [StudentComponent, AddstudentComponent, EnrollStudentComponent],
+    declarations: [StudentComponent, AddstudentComponent, EnrollStudentComponent, EnrolledStudentsComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

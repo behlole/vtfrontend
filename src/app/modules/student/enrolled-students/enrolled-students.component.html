@@ -59,10 +59,19 @@ background: linear-gradient(to right, #ffffff, #abbaab);">
 
                 <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row">
+                    <button (click)="onEdit(row)" mat-icon-button>
+                        <mat-icon title="view details of student">launch</mat-icon>
+                    </button>
+                    <button (click)="onDelete(row)" color="warn" mat-icon-button>
+                        <mat-icon title="delete student">delete_outline</mat-icon>
+                    </button>
                     <button (click)="openEnrolDialog(row)" *ngIf="row.is_enrolled==null" mat-icon-button>
-                        <mat-icon title="add student">add</mat-icon>
+                        <mat-icon title="enroll student">add</mat-icon>
                     </button>
 
+                    <button *ngIf="row.is_enrolled!=null" mat-icon-button>
+                        <mat-icon title="student enrolled">check</mat-icon>
+                    </button>
                 </mat-cell>
             </ng-container>
             <!--            <ng-container matColumnDef="loading">-->

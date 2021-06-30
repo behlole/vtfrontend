@@ -1,15 +1,35 @@
-<div class="page-layout blank p-24" fusePerfectScrollbar>
+<div class="page-layout blank p-24" fusePerfectScrollbar style="background: #abbaab;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffffff, #abbaab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+">
+
+
     <mat-grid-list *ngIf="roleType=='teacher'" cols="12">
-        <mat-grid-tile [colspan]="6" [rowspan]="6">
-            <mat-grid-tile-header>All Meetings</mat-grid-tile-header>
-            <app-all-meetings></app-all-meetings>
+        <div style="margin-left: auto;
+    margin-right: auto;
+    width: 8em;">
+            <h1 style="font-size: -webkit-xxx-large"><b>Courses</b></h1>
 
-        </mat-grid-tile>
+        </div>
 
-        <mat-grid-tile [colspan]="6" [rowspan]="6">
-            <mat-grid-tile-header>All Courses</mat-grid-tile-header>
-            <app-course></app-course>
+        <div *ngFor="let courseSingle of course">
+        <mat-grid-tile [colspan]="4" [rowspan]="2">
+            <!--                            <mat-grid-tile-header>All Meetings</mat-grid-tile-header>-->
+            <!--                            <app-all-meetings></app-all-meetings>-->
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>{{courseSingle.course_name}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-actions>
+                    <button mat-button mat-raised-button color="accent"  [queryParams]="{course_name:courseSingle.course_name,course_id:courseSingle.id}" color="accent"
+                            routerLink='/conference'>Start Meeting</button>
+                    <button mat-button mat-raised-button color="primary" *ngIf="roleType=='teacher' && courseSingle.current_meeting_code" routerLink='/conference' [queryParams]="{course_name:courseSingle.course_name, course_id:courseSingle.id, course_code:courseSingle.current_meeting_code}">Join Meeting</button>
+                    <button mat-button mat-raised-button color="warn" (click)="onDelete(courseSingle)">Delete Course</button>
+                </mat-card-actions>
+            </mat-card>
         </mat-grid-tile>
+        </div>
     </mat-grid-list>
 
     <mat-grid-list *ngIf="roleType=='student'" cols="12">

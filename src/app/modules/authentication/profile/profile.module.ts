@@ -19,6 +19,7 @@ import {
     MatInputModule,
     MatDatepickerModule, MatRadioModule, MatSelectModule
 } from '@angular/material';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const routes = [
@@ -37,7 +38,8 @@ const routes = [
         ProfileTimelineComponent,
         ProfileAboutComponent,
         ProfilePhotosVideosComponent,
-        EditProfileComponent
+        EditProfileComponent,
+        ChangePasswordComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -60,7 +62,8 @@ const routes = [
         ProfileService
     ],
     entryComponents:[
-        EditProfileComponent
+        EditProfileComponent,
+        ChangePasswordComponent
     ]
 })
 export class ProfileModule {

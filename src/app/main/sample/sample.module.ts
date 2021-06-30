@@ -6,7 +6,7 @@ import {FuseSharedModule} from '@fuse/shared.module';
 
 import {SampleComponent} from './sample.component';
 import {
-    MatButtonModule,
+    MatButtonModule, MatCardModule,
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
@@ -55,6 +55,7 @@ const routes = [
         MeetingModule,
         TeachersModule,
         StudentCoursesModule,
+        MatCardModule,
     ],
     exports: [
         SampleComponent

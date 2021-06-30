@@ -29,6 +29,10 @@ export class ProfileService {
         // this.photosVideosOnChanged = new BehaviorSubject({});
     }
 
+    getUserDetail() {
+        return this._httpClient.get(environment.url + '/user/get-user');
+    }
+
     /**
      * Resolver
      *
@@ -73,7 +77,7 @@ export class ProfileService {
      */
     getAbout() {
 
-        return this._httpClient.get(environment.url + 'teacher/profile');
+        return this._httpClient.get(environment.url + 'profile');
     }
 
     /**
@@ -91,7 +95,13 @@ export class ProfileService {
         });
     }
 
-    getUserData() {
-        return this._httpClient.get(`/get-user-data/${this.id}`);
+    submitEditUserData(userData:any) {
+        var role_type=JSON.parse(localStorage.getItem('user')).user.role_type;
+        return this._httpClient.post(environment.url+`/user/submit-edit/${role_type}`,userData)
+    }
+
+    changePassword(new_password) {
+        return this._httpClient.post(environment.url+'/user/change-password',new_password);
+
     }
 }

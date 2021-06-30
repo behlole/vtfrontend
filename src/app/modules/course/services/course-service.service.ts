@@ -17,7 +17,7 @@ export class CourseServiceService {
     }
 
     getAllCourses() {
-        return this.http.get(environment.url + 'teacher/courses/');
+        return this.http.get(environment.url + 'teacher/courses');
     }
 
     initializeForm() {
@@ -46,7 +46,7 @@ export class CourseServiceService {
     }
 
     deleteCourse(id) {
-        return this.http.delete(environment.url + `teacher/courses/delete/${id}`);
+        return this.http.get(environment.url + `teacher/courses/delete/${id}`);
     }
 
     getEnrolled(id) {
@@ -54,6 +54,6 @@ export class CourseServiceService {
     }
 
     getAllCoursesForStudent() {
-        return this.http.get(environment.url + 'student/courses/');
+        return this.http.get(environment.url + 'student/courses');
     }
 }

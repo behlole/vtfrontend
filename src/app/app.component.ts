@@ -64,6 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         else
         {
+
             this._fuseNavigationService.register('main', GuestNavigation);
 
         }

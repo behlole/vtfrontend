@@ -44,9 +44,14 @@ export class AddstudentComponent {
             this.studentService.addStudentForm.value.date_of_birth = moment(momentDate).format('YYYY/MM/DD');
             if (this.studentService.addStudentForm.controls['id'].value) {
                 this.studentService.updateStudent(this.studentService.addStudentForm.value).subscribe(
-                    (data) => {
-                        this.toastr.success('', data['message']);
-                        this.dialogRef.close(true);
+                    (data: any) => {
+                        if (data.error == true) {
+                            this.toastr.error('', data['message']);
+
+                        } else {
+                            this.toastr.success('', data['message']);
+                            this.dialogRef.close(true);
+                        }
 
 
                     }, (error) => {

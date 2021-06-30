@@ -1,4 +1,6 @@
-<div class="page-layout simple tabbed" id="profile">
+<div class="page-layout simple tabbed" id="profile"  style="background: #abbaab;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffffff, #abbaab);">
 
     <!-- HEADER -->
     <div class="header p-24" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center"
@@ -15,7 +17,7 @@
 
         <div [@animate]="{value:'*',params:{delay:'200ms'}}" class="actions" fxLayout="row" fxLayoutAlign="end center">
             <button aria-label="Edit Profile" color="accent" mat-raised-button (click)="onEdit()">Edit Profile</button>
-            <button aria-label="Change Password" color="warn" mat-raised-button>Change Password</button>
+            <button aria-label="Change Password" color="warn" mat-raised-button (click)="changePasswordForm()">Change Password</button>
         </div>
 
     </div>
@@ -27,7 +29,7 @@
         <mat-tab-group dynamicHeight="true">
 
 
-            <mat-tab label="About">
+            <mat-tab label="About" >
                 <profile-about></profile-about>
             </mat-tab>
 <!--                        <mat-tab label="Courses">-->

@@ -1,20 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {StudentServiceService} from './services/student-service.service';
+import {StudentServiceService} from '../services/student-service.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import {AddstudentComponent} from './addstudent/addstudent.component';
 import {ToastrService} from 'ngx-toastr';
-import {EnrollStudentComponent} from './enroll-student/enroll-student.component';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {AddstudentComponent} from '../addstudent/addstudent.component';
+import {EnrollStudentComponent} from '../enroll-student/enroll-student.component';
 
 @Component({
-    selector: 'app-student',
-    templateUrl: './student.component.html',
-    styleUrls: ['./student.component.scss']
+  selector: 'app-enrolled-students',
+  templateUrl: './enrolled-students.component.html',
+  styleUrls: ['./enrolled-students.component.scss']
 })
-export class StudentComponent implements OnInit {
+export class EnrolledStudentsComponent implements OnInit {
 
     students;
     // @ts-ignore
@@ -47,7 +47,7 @@ export class StudentComponent implements OnInit {
     }
 
     getStudents() {
-        this.studentService.getCompleteListOfudents().subscribe((data: []) => {
+        this.studentService.getAllStudents().subscribe((data: []) => {
                 this.dataSource.data = data; // on data receive populate dataSource.data array
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
@@ -103,30 +103,18 @@ export class StudentComponent implements OnInit {
     }
 
     openEnrolDialog(row) {
-        this.studentService.addStudentToTeacher(row.id).subscribe((data)=>{
-            if (data.error==false)
-            {
-                this.toaster.success(data.message,"Success");
-            }
-            else
-            {
-                this.toaster.error(data.message,"Success");
-
+        var studentService = this.studentService.courseForm.patchValue({
+            student_id: row.id,
+        });
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '60%';
+        let dialoagRef = this.dialog.open(EnrollStudentComponent, dialogConfig);
+        dialoagRef.afterClosed().subscribe((confirmed: boolean) => {
+            if (confirmed) {
+                this.getStudents();
             }
         });
-        // var studentService = this.studentService.courseForm.patchValue({
-        //     student_id: row.id,
-        // });
-        // const dialogConfig = new MatDialogConfig();
-        // dialogConfig.disableClose = true;
-        // dialogConfig.autoFocus = true;
-        // dialogConfig.width = '60%';
-        // let dialoagRef = this.dialog.open(EnrollStudentComponent, dialogConfig);
-        // dialoagRef.afterClosed().subscribe((confirmed: boolean) => {
-        //     if (confirmed) {
-        //         this.getStudents();
-        //     }
-        // });
     }
 }
-
