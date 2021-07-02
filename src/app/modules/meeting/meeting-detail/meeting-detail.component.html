@@ -65,42 +65,48 @@ background: linear-gradient(to right, #ffffff, #abbaab);">
             <mat-table [dataSource]="dataSource" matSort>
 
                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID #</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element?.id}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 19px">ID #</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px">{{element?.id}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="first_name">
-                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>First Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element?.first_name}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">First Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px">{{element?.first_name}}</mat-cell>
 
                 </ng-container>
                 <ng-container matColumnDef="last_name">
-                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Last Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element?.last_name}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">Last Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px">{{element?.last_name}}</mat-cell>
 
                 </ng-container>
                 <ng-container matColumnDef="gender">
-                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Gender</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element?.gender}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">Gender</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px">{{element?.gender}}</mat-cell>
 
                 </ng-container>
                 <ng-container matColumnDef="phone_number">
-                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Phone Number</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element?.phone_number}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">Phone Number</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px">{{element?.phone_number}}</mat-cell>
 
                 </ng-container>
                 <ng-container matColumnDef="department">
-                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Department</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element?.department}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">Department</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px">{{element?.department}}</mat-cell>
 
                 </ng-container>
                 <ng-container matColumnDef="city">
-                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>City</mat-header-cell>
-                    <mat-cell *matCellDef="let element">{{element?.city}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">City</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px">{{element?.city}}</mat-cell>
+
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">View Activities</mat-header-cell>
+                    <mat-cell *matCellDef="let element" style="font-size: 19px"><button mat-raised-button color="accent" (click)="openStudentActivityDetail(element.id)"><mat-icon title="student enrolled">list</mat-icon></button></mat-cell>
 
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row (click)="openStudentActivityDetail(row.id)" *matRowDef="let row; columns:displayedColumns"
-                         style="cursor: pointer"></mat-row>
+                <mat-row  *matRowDef="let row; columns:displayedColumns"
+                         style="cursor: pointer" style="height: 7em;"></mat-row>
                 <tr *matNoDataRow class="mat-row">
                     <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
                 </tr>

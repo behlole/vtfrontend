@@ -32,18 +32,51 @@ background: linear-gradient(to right, #ffffff, #abbaab); /* W3C, IE 10+/ Edge, F
         </div>
     </mat-grid-list>
 
+
     <mat-grid-list *ngIf="roleType=='student'" cols="12">
-        <mat-grid-tile [colspan]="6" [rowspan]="6">
-            <mat-grid-tile-header>All Teachers</mat-grid-tile-header>
-            <app-teachers></app-teachers>
+        <div style="margin-left: auto;
+    margin-right: auto;
+    width: 8em;">
+            <h1 style="font-size: -webkit-xxx-large"><b>Courses</b></h1>
 
-        </mat-grid-tile>
+        </div>
 
-        <mat-grid-tile [colspan]="6" [rowspan]="6">
-            <mat-grid-tile-header>All Courses</mat-grid-tile-header>
-            <app-student-courses></app-student-courses>
-        </mat-grid-tile>
+        <div *ngFor="let courseSingle of courseForStudent">
+            <mat-grid-tile [colspan]="4" [rowspan]="2">
+                <!--                            <mat-grid-tile-header>All Meetings</mat-grid-tile-header>-->
+                <!--                            <app-all-meetings></app-all-meetings>-->
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>{{courseSingle.course_name}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-actions style="margin-left: auto;
+    margin-right: auto;
+    width: 8em;">
+                        <a *ngIf="roleType=='student' && courseSingle.current_meeting_code"
+                           [queryParams]="{course_name:courseSingle.course_name, course_id:courseSingle.id, course_code:courseSingle.current_meeting_code}"
+                           color="primary"
+                           mat-raised-button color="accent"
+                           routerLink='/conference'>
+                            Join Meeting
+                        </a>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-grid-tile>
+        </div>
     </mat-grid-list>
+    <!--    <mat-grid-list *ngIf="roleType=='student'" cols="12">-->
+    <!--        <mat-grid-tile [colspan]="6" [rowspan]="6">-->
+    <!--            <mat-grid-tile-header>All Teachers</mat-grid-tile-header>-->
+    <!--            <app-teachers></app-teachers>-->
+
+    <!--        </mat-grid-tile>-->
+
+    <!--        <mat-grid-tile [colspan]="6" [rowspan]="6">-->
+    <!--            <mat-grid-tile-header>All Courses</mat-grid-tile-header>-->
+    <!--            <app-student-courses></app-student-courses>-->
+    <!--        </mat-grid-tile>-->
+    <!--    </mat-grid-list>-->
 
 
 </div>

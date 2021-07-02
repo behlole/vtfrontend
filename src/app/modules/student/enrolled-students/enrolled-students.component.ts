@@ -107,7 +107,6 @@ export class EnrolledStudentsComponent implements OnInit {
             student_id: row.id,
         });
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '60%';
         let dialoagRef = this.dialog.open(EnrollStudentComponent, dialogConfig);

@@ -22,7 +22,7 @@ export class AllMeetingsComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     dataSource: MatTableDataSource<any>;
 
-    displayedColumns: string[] = ['id', 'course_name', 'meeting_code', 'start_time', 'end_time', 'duration', 'date'];
+    displayedColumns: string[] = ['id', 'course_name', 'meeting_code', 'start_time', 'end_time', 'duration', 'date','actions'];
     roleType: String;
     data: any;
 

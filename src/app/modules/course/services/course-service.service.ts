@@ -41,7 +41,7 @@ export class CourseServiceService {
     }
 
     updateCourse(value: any) {
-        return this.http.put(environment.url + 'teacher/courses/update', value);
+        return this.http.post(environment.url + 'teacher/courses/update', value);
 
     }
 

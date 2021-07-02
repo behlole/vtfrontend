@@ -8,6 +8,14 @@ export const StudentNavigation: FuseNavigation[] = [
         type: 'group',
         children: [
             {
+                id: 'Dashboard',
+                title: 'Dashboard',
+                translate: 'Dashboard',
+                type: 'item',
+                icon: 'home',
+                url: 'dashboard',
+            },
+            {
                 id: 'All Teachers',
                 title: 'Teachers',
                 translate: 'NAV.TEACHERS.TITLE',

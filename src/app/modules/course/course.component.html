@@ -3,9 +3,13 @@ background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-2
 background: linear-gradient(to right, #ffffff, #abbaab);">
     <img mat-card-image src="../../../assets/images/backgrounds/course.jpg" style="height: 20%"
          alt="Photo cover for students">
-    <button (click)="create()" mat-raised-button color="accent">
+    <button (click)="create()" mat-raised-button  color="accent" style="    width: 350px;
+    margin-left: auto;
+    font-size: 19px;
+    margin-right: auto;
+    margin-top: 19px">
         <mat-icon>add</mat-icon>
-        Create
+        Add Course
     </button>
     <mat-form-field class="search-form-field">
         <mat-label>Filter</mat-label>
@@ -18,22 +22,22 @@ background: linear-gradient(to right, #ffffff, #abbaab);">
 
         <mat-table [dataSource]="dataSource" matSort>
 
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>ID #</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+            <ng-container matColumnDef="id" >
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 19px">ID #</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-size: 19px">{{element.id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Course Name</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.course_name}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">Course Name</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-size: 19px">{{element.course_name}}</mat-cell>
 
             </ng-container>
             <ng-container matColumnDef="students">
-                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Enrolled Students</mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <button (click)="listEnrolled(element)" color="primary" mat-icon-button
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px">Enrolled Students</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-size: 19px">
+                    <button (click)="listEnrolled(element)" color="accent" mat-raised-button
                             title="list all enrolled students">
-                        <mat-icon>menu</mat-icon>
+                        <mat-icon>list</mat-icon>
                     </button>
                 </mat-cell>
 
@@ -42,27 +46,26 @@ background: linear-gradient(to right, #ffffff, #abbaab);">
 
             <ng-container matColumnDef="actions">
 
-                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <button (click)="onEdit(row)" mat-icon-button>
-                        <mat-icon title="view details">launch</mat-icon>
+                <mat-header-cell *matHeaderCellDef style="font-size: 19px;height: 20%">Actions</mat-header-cell>
+                <mat-cell *matCellDef="let row" style="font-size: 19px;height: 20%">
+                    <button (click)="onEdit(row)" mat-icon-button style="margin: auto">
+                        <mat-icon title="view details">mode_edit</mat-icon>
                     </button>
-                    <button (click)="onDelete(row)" *ngIf="roleType=='teacher'" color="warn" mat-icon-button>
+                    <button (click)="onDelete(row)" *ngIf="roleType=='teacher'" color="warn" mat-icon-button style="margin: auto">
                         <mat-icon title="delete course">delete_outline</mat-icon>
                     </button>
                     <a *ngIf="roleType=='teacher' && row.current_meeting_code" [queryParams]="{course_name:row.course_name, course_id:row.id, course_code:row.current_meeting_code}" color="primary"
                        mat-icon-button
-                       routerLink='/conference'>
+                       routerLink='/conference' style="margin: auto">
                         <mat-icon title="JOIN CLASS">duo</mat-icon>
                     </a>
-                    <a [queryParams]="{course_name:row.course_name,course_id:row.id}" color="accent" mat-icon-button
-                       routerLink='/conference'>
-                        <mat-icon title="Start Class">class</mat-icon>
+                    <a [queryParams]="{course_name:row.course_name,course_id:row.id}" color="accent" mat-raised-button
+                       routerLink='/conference' style="margin: auto"> Start Meeting
                     </a>
                 </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns" style="height: 7em;"></mat-row>
             <tr *matNoDataRow class="mat-row">
                 <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
             </tr>

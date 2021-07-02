@@ -100,7 +100,6 @@ export class CourseComponent implements OnInit {
     listEnrolled(row: any) {
         this.courseService.courseId = row.id;
         const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '60%';
         let dialogRef = this.dialog.open(EnrolledStudentsComponent, dialogConfig);

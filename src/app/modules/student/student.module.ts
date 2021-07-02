@@ -7,7 +7,7 @@ import {
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
-    MatDialogModule,
+    MatDialogModule, MatDividerModule,
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
@@ -61,7 +61,8 @@ const routes = [
         MatRadioModule,
         MatDatepickerModule,
         FuseSharedModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatDividerModule
 
     ],
     providers: [
