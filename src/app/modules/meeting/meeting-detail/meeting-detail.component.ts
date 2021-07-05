@@ -18,7 +18,7 @@ export class MeetingDetailComponent implements OnInit {
     // @ts-ignore
     @ViewChild(MatPaginator) paginator: MatPaginator;
     dataSource: MatTableDataSource<any>;
-    displayedColumns: string[] = ['id', 'first_name', 'last_name', 'gender', 'phone_number', 'department', 'city'];
+    displayedColumns: string[] = ['id', 'first_name', 'last_name', 'gender', 'phone_number', 'department', 'city','actions'];
     private meetingCode;
     data: any;
 

@@ -6,9 +6,9 @@ import {ConferenceService} from './services/conference.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {interval, Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {SocketService} from './services/socket.service';
+import {MatCheckboxChange} from '@angular/material';
 
 declare var JitsiMeetExternalAPI: any;
 @Component({
@@ -25,7 +25,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     private _filter(value: string): string[] {
                     this.endMeetingToaster = false;
         const filterValue = value.toLowerCase();
-        console.log(this.options);
         return this.options.filter(option => this.options.indexOf(filterValue) === 0);
     }
     meetingCode = Math.random().toString(36).substring(2);
@@ -36,12 +35,15 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     api: any;
     course: any;
     courseId: any;
-    roleType: any;
+    roleType: any = 0;
     mute: null;
     endMeetingToaster = false;
     joined = false;
     roleId;
-    allStudentChecks: any;
+    audio = 1;
+    video = 1;
+    screen = 1;
+    studentEmailToCheck: string = '';
 
     constructor(
         private _fuseConfigService: FuseConfigService,
@@ -49,8 +51,7 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
         private router: Router,
         private conferenceService: ConferenceService,
         private toaster: ToastrService,
-        private spinner: NgxSpinnerService,
-        private socketService: SocketService) {
+        private spinner: NgxSpinnerService,) {
         this._fuseConfigService.config = {
             layout: {
                 navbar: {
@@ -70,10 +71,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
     }
 
     ngOnInit(): void {
-
-        /*
-            Listen to the Event from socket.io server
-         */
 
         this.filteredOptions = this.myControl.valueChanges.pipe(
             startWith(''),
@@ -99,32 +96,21 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
             this.api = new JitsiMeetExternalAPI(this.domain, this.teacherOptions);
         } else if (this.roleType == 2) {
             this.api = new JitsiMeetExternalAPI(this.domain, this.studentOptions);
-            this.socketService.listen('toggle-mic').subscribe((data: any) => {
-                if (this.roleId == data.student_id) {
-                    this.api.executeCommand('toggleMic');
-                }
-            });
-            this.socketService.listen('toggle-screen').subscribe((data: any) => {
-                if (this.roleId == data.student_id) {
-                    this.api.executeCommand('toggleShareScreen');
-                }
-            });
-            this.socketService.listen('toggle-camera').subscribe((data: any) => {
-                if (this.roleId = data.student_id) {
-                    this.api.executeCommand('toggleCamera');
-                }
-            });
         }
 
         if (this.roleType == 1) {
             this.api.addEventListeners({
                 participantJoined: (result) => {
                     this.options.push(result.displayName);
-                    console.log("options are ",this.options);
                     this.toaster.success(result.displayName + ' Joined Successfully', 'Success');
+                },
+                participantLeft: (result) => {
+                    this.toaster.success(result.id + ' Participant Left', 'Success');
+
                 },
                 videoConferenceLeft: () => this.endMeeting().subscribe(data => {
                     if (this.endMeetingToaster == false) {
+                        this.api.dispose();
                         this.toaster.success('Meeting ended successfully');
                         this.api.executeCommand('hangup');
                         this.router.navigate(['dashboard']);
@@ -143,14 +129,38 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                     }),
             });
         } else if (this.roleType == 2) {
+            interval(1000).subscribe((func => {
+                this.conferenceService.fetchStudentChecks(this.roleId).subscribe((data: any) => {
+                    this.api.isAudioMuted().then(muted => {
+                        if (muted == true && data.audio == 1) {
+                            this.api.executeCommand('toggleAudio');
+                        } else if (muted == false && data.audio == 0) {
+                            this.api.executeCommand('toggleAudio');
+
+                        }
+                    });
+                    this.api.isVideoMuted().then(muted => {
+                        if (muted == true && data.video == 1) {
+                            this.api.executeCommand('toggleVideo');
+                        } else if (muted == false && data.video == 0) {
+                            this.api.executeCommand('toggleVideo');
+
+                        }
+                    });
+                });
+            }));
+
             this.api.addEventListeners({
 
                 videoConferenceLeft: () => this.recordActivity('Left-Meeting').subscribe(data => {
+                    this.api.dispose();
                     this.router.navigate(['dashboard']);
                     this.toaster.success('Meeting Left Successfully ');
+
                 }),
                 videoConferenceJoined: (data = true) => {
                     if (this.joined != data) {
+
                         this.recordActivity('Joined-Meeting').subscribe(result => {
                                 if (result['error']) {
                                     this.toaster.error(result['message']);
@@ -171,7 +181,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                         if (this.mute) {
                             this.recordActivity('Audio-Turned-Off').subscribe(
                                 data => {
-                                    this.socketService.emit('turn-mic-off', this.roleId);
                                 },
                                 error => {
                                 }
@@ -179,7 +188,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                         } else {
                             this.recordActivity('Audio-Turned-On').subscribe(
                                 data => {
-                                    this.socketService.emit('turn-mic-on', this.allStudentChecks.roleId);
                                 },
                                 error => {
                                 }
@@ -191,7 +199,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                     if (status.muted) {
                         this.recordActivity('Screen-Sharing-Turned-Off').subscribe(
                             data => {
-                                this.socketService.emit('turn-screen-off', this.roleId);
                             },
                             error => {
 
@@ -202,7 +209,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                     {
                         this.recordActivity('Screen-Sharing-Turned-On').subscribe(
                             data => {
-                                this.socketService.emit('turn-screen-on', this.roleId);
                             },
                             error => {
 
@@ -215,7 +221,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                     {
                         this.recordActivity('Video-Turned-Off').subscribe(
                             data => {
-                                this.socketService.emit('turn-camera-off', this.roleId);
                             }
                         );
                     }
@@ -223,7 +228,6 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
                     {
                         this.recordActivity('Video-Turned-On').subscribe(
                             data => {
-                                this.socketService.emit('turn-camera-on', this.roleId);
                             }
                         );
                     }
@@ -263,7 +267,7 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_WATERMARK_FOR_GUESTS: false,
-                TOOLBAR_BUTTONS: ['microphone', 'camera', 'desktop', 'fodeviceselection', 'etherpad', 'sharedvideo', 'tileview', 'hangup', 'chat', 'profile', 'help'],
+                TOOLBAR_BUTTONS: ['microphone', 'camera', 'desktop', 'fullscreen', 'sharedvideo', 'raisehand', 'tileview', 'hangup', 'chat'],
             },
 
             parentNode: document.querySelector('#meet')
@@ -285,7 +289,14 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_WATERMARK_FOR_GUESTS: false,
+                TOOLBAR_BUTTONS: ['microphone', 'camera', 'desktop', 'fullscreen', 'hangup', 'profile', 'chat', 'recording',
+                    , 'filmstrip','participant','disable-everyone-camera',
+                    'tileview', 'mute-everyone'],
             },
+
+            // TOOLBAR_BUTTONS: ['microphone', 'camera', 'desktop', 'fullscreen', 'fodeviceselection', 'hangup', 'profile', 'info', 'chat', 'recording',
+            //     'livestreaming', 'etherpad', 'sharedvideo', 'settigns', 'raisehand', 'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+            //     'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'e2ee'],
 
             parentNode: document.querySelector('#meet')
         };
@@ -300,60 +311,40 @@ export class ConferenceComponent implements AfterViewInit, OnInit {
         return this.conferenceService.recordActivity(this.meetingCode, activity);
     }
 
-    fetchStudentStats(email: string) {
-        this.socketService.emit('fetch-student-check', email);
-        this.socketService.listen('return-student-checks').subscribe((data: any) => {
-            this.allStudentChecks = data;
+
+    changeAudio(audio: any, $event: MatCheckboxChange) {
+        if ($event.checked) {
+            audio = 1;
+        } else {
+            audio = 0;
+        }
+        this.conferenceService.changeMicStatus(audio, this.studentEmailToCheck).subscribe(() => {
+            this.toaster.success(`Mic status of ${this.studentEmailToCheck} has been changed`);
         });
     }
 
-    changeMic(mic: any) {
-        console.log(mic);
-        if (mic == 1) {
-            this.socketService.emit('turn-mic-off', this.allStudentChecks.student_id);
-            this.socketService.listen('return-student-checks').subscribe((data: any) => {
-                this.allStudentChecks = data;
-            });
 
+    changeVideo(video: any, $event: MatCheckboxChange) {
+        if ($event.checked) {
+            video = 1;
         } else {
-            this.socketService.emit('turn-mic-on', this.allStudentChecks.student_id);
-            this.socketService.listen('return-student-checks').subscribe((data: any) => {
-                this.allStudentChecks = data;
-            });
-
+            video = 0;
         }
+        this.conferenceService.changeCameraStatus(video, this.studentEmailToCheck).subscribe((data) => {
+            this.toaster.success(`Mic status of ${this.studentEmailToCheck} has been changed`);
+
+        });
+
     }
 
-    changeCamera(camera: any) {
-        if (camera == 1) {
-            this.socketService.emit('turn-camera-off', this.allStudentChecks.student_id);
-            this.socketService.listen('return-student-checks').subscribe((data: any) => {
-                this.allStudentChecks = data;
-            });
-
-        } else {
-            this.socketService.emit('turn-camera-on', this.allStudentChecks.student_id);
-            this.socketService.listen('return-student-checks').subscribe((data: any) => {
-                this.allStudentChecks = data;
-            });
-
-        }
-    }
-
-    changeScreen(screen: any) {
-        if (screen == 1) {
-            this.socketService.emit('turn-screen-off', this.allStudentChecks.student_id);
-            this.socketService.listen('return-student-checks').subscribe((data: any) => {
-                this.allStudentChecks = data;
-            });
-
-        } else {
-            this.socketService.emit('turn-screen-on', this.allStudentChecks.student_id);
-            this.socketService.listen('return-student-checks').subscribe((data: any) => {
-                this.allStudentChecks = data;
-            });
-
-        }
+    fetchStudentStats(option: string) {
+        this.studentEmailToCheck = option;
+        option = option.replace('.com', '');
+        this.conferenceService.fetchStudentDevicesInfo(option).subscribe((data: any) => {
+            this.audio = data.audio;
+            this.video = data.video;
+            this.screen = data.screen;
+        });
     }
 }
 

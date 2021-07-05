@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -8,6 +8,8 @@ import {AddstudentComponent} from './addstudent/addstudent.component';
 import {ToastrService} from 'ngx-toastr';
 import {EnrollStudentComponent} from './enroll-student/enroll-student.component';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {interval, Observable, timer} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-student',
@@ -15,7 +17,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
     styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit {
-
     students;
     // @ts-ignore
     @ViewChild(MatSort) sort: MatSort;
@@ -30,23 +31,24 @@ export class StudentComponent implements OnInit {
         private toaster: ToastrService,
         private spinner: NgxSpinnerService
     ) {
+
     }
 
     // Get All Students of teacher
 
 
     ngOnInit(): void {
+
         this.spinner.show();
-        this.dataSource = new MatTableDataSource(); // create new object
+        this.dataSource = new MatTableDataSource();
         this.getStudents(); // forgeted this line
         setTimeout(() => {
             this.spinner.hide();
-        }, 1000);
-
-
+        },1000);
     }
 
     getStudents() {
+
         this.studentService.getCompleteListOfudents().subscribe((data: []) => {
                 this.dataSource.data = data; // on data receive populate dataSource.data array
                 this.dataSource.paginator = this.paginator;
@@ -103,14 +105,14 @@ export class StudentComponent implements OnInit {
     }
 
     openEnrolDialog(row) {
-        this.studentService.addStudentToTeacher(row.id).subscribe((data)=>{
+        this.studentService.addStudentToTeacher(row.id).subscribe((data:any)=>{
             if (data.error==false)
             {
                 this.toaster.success(data.message,"Success");
             }
             else
             {
-                this.toaster.error(data.message,"Success");
+                this.toaster.error(data.message);
 
             }
         });
@@ -129,4 +131,3 @@ export class StudentComponent implements OnInit {
         // });
     }
 }
-

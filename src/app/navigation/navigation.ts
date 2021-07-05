@@ -61,9 +61,11 @@ export const navigation: FuseNavigation[] = [
                 id: 'Organize Quiz',
                 title: 'Quizzes',
                 translate: 'MEETINGS.Quiz',
+                url:'https://qms.qalamguru.com/',
+                externalUrl: true,
+                openInNewTab:true,
                 type: 'item',
                 icon: 'stars',
-                url: 'https://qms.qalamguru.com/',
             }
         ]
     }

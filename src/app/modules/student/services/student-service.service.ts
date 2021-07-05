@@ -70,7 +70,7 @@ export class StudentServiceService {
 
     updateStudent(student: any) {
 
-        return this.http.put(environment.url + 'teacher/students/update', student);
+        return this.http.post(environment.url + 'teacher/students/update', student);
     }
 
     deleteStudent(id) {

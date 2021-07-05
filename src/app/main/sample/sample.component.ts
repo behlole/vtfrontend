@@ -17,6 +17,7 @@ export class SampleComponent {
     roleType: String;
     data: any;
     private course: any;
+    courseForStudent: any;
 
     constructor(
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
@@ -40,10 +41,12 @@ export class SampleComponent {
         this.data = JSON.parse(localStorage.getItem('user'));
         if (this.data.user.role_type == 1) {
             this.roleType = 'teacher';
+            this.getCourses();
+
         } else {
             this.roleType = 'student';
+            this.getCoursesForStudent();
         }
-        this.getCourses();
     }
 
     getCourses() {
@@ -57,6 +60,12 @@ export class SampleComponent {
         this.courseService.deleteCourse(courseSingle.id).subscribe((data) => {
             this.toaster.success('Course has been deleted successfully');
             this.getCourses();
+        });
+    }
+
+    getCoursesForStudent() {
+        this.courseService.getAllCoursesForStudent().subscribe((data: []) => {
+            this.courseForStudent=data;
         });
     }
 }

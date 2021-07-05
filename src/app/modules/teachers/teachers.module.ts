@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TeachersComponent} from './teachers.component';
-import {MatFormFieldModule, MatIconModule, MatPaginatorModule, MatTableModule} from '@angular/material';
+import {MatFormFieldModule, MatIconModule, MatPaginatorModule, MatTableModule,MatInputModule} from '@angular/material';
 import {AuthGuard} from '../authentication/guards/auth-guard.guard';
 import {StudentServiceService} from '../student/services/student-service.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -23,6 +23,7 @@ const routes = [
         MatFormFieldModule,
         MatPaginatorModule,
         MatTableModule,
+        MatInputModule,
         RouterModule.forChild(routes)
     ],
     providers: [

@@ -11,6 +11,6 @@ export class TeacherService {
     }
 
     getAllTeachers() {
-        return this.http.get(environment.url + 'student/teachers/');
+        return this.http.get(environment.url + 'student/teachers');
     }
 }

@@ -1,4 +1,6 @@
 <div class="page-layout simple fullwidth docs" style="padding: 10px">
+    <img mat-card-image src="../../../assets/images/backgrounds/course.jpg" style="height: 20%"
+         alt="Photo cover for students">
     <mat-form-field class="search-form-field">
         <mat-label>Filter</mat-label>
         <input #input (keyup)="applyFilter($event)" matInput placeholder="Search a keyword of any student">
@@ -12,21 +14,21 @@
         <mat-table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>ID #</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 19px;height: 20%">ID #</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-size: 19px;height: 20%">{{element.id}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header>Course Name</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.course_name}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef="let element" mat-sort-header style="font-size: 19px;height: 20%">Course Name</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font-size: 19px;height: 20%">{{element.course_name}}</mat-cell>
 
             </ng-container>
 
 
             <ng-container matColumnDef="actions">
 
-                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-header-cell *matHeaderCellDef style="font-size: 19px;height: 20%">Actions</mat-header-cell>
+                <mat-cell *matCellDef="let row" style="font-size: 19px;height: 20%">
                     <a *ngIf="roleType=='student' && row.current_meeting_code" [queryParams]="{course_name:row.course_name, course_id:row.id, course_code:row.current_meeting_code}" color="primary"
                        mat-icon-button
                        routerLink='/conference'>
@@ -35,7 +37,7 @@
                 </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+            <mat-row *matRowDef="let row; columns:displayedColumns" style="height: 7em;"></mat-row>
             <tr *matNoDataRow class="mat-row">
                 <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
             </tr>

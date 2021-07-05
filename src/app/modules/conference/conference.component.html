@@ -1,5 +1,7 @@
 <div id="meet" style="text-align:center;width: 100%;height: 100%;">
-    <div style="position: absolute;background: #1A9BE5; color:black;opacity:0.5" *ngIf="this.roleType==1; ">
+    <div style="position: absolute;background: #abbaab;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ffffff, #abbaab);width: 20%;height: 150px" *ngIf="this.roleType==1; ">
         <mat-form-field style="width: 100%;">
 
             <mat-label>Students in Meeting</mat-label>
@@ -10,16 +12,18 @@
             </mat-select>
 
         </mat-form-field>
-        <section class="example-section" style="background: #1E2129;color: white">
-            <mat-checkbox class="example-margin" [checked]="allStudentChecks?.mic==1"
-                          (change)="changeMic(allStudentChecks?.mic)">Mic
+        <section class="example-section" style="background: #1E2129;color: white;height: 70px">
+            <div style="margin: auto">
+            <mat-checkbox class="example-margin" [checked]="audio==1"
+                          (change)="changeAudio(audio,$event)"><mat-icon>mic</mat-icon>
             </mat-checkbox>
-            <mat-checkbox class="example-margin" [checked]="allStudentChecks?.screen==1"
-                          (change)="changeScreen(allStudentChecks?.screen)">Screen
+            </div>
+            <div style="margin: auto">
+
+            <mat-checkbox class="example-margin" [checked]="video==1"
+                          (change)="changeVideo(video,$event)"><mat-icon>videocam</mat-icon>
             </mat-checkbox>
-            <mat-checkbox class="example-margin" [checked]="allStudentChecks?.camera==1"
-                          (change)="changeCamera(allStudentChecks?.camera)">Camera
-            </mat-checkbox>
+            </div>
         </section>
     </div>
 

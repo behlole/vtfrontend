@@ -18,7 +18,6 @@ declare var io:any;
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    socket:any;
 
     /**
      * Constructor
@@ -34,10 +33,6 @@ export class LoginComponent implements OnInit {
         private toaster: ToastrService,
         private fuseNavigationService:FuseNavigationService
     ) {
-
-        this.socket=io(environment.socketServer);
-        console.log(this.socket);
-        this.socket
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
